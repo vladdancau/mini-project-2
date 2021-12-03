@@ -1,4 +1,6 @@
 package ch.epfl.cs107.play.game.icwars.area.icwars;
 
-public class Level0 {
+import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
+
+public class Level0 extends ICWarsArea {
 }
