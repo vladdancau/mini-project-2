@@ -32,8 +32,13 @@ public class ICWars extends AreaGame {
         return false;
     }
 
-    private void initArea(String areaKey) {
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+    }
 
+    private void initArea(String areaKey) {
+        setCurrentArea(areaKey, true);
     }
 
     @Override
