@@ -33,12 +33,11 @@ public class ICWars extends AreaGame {
     }
 
     private void initArea(String areaKey) {
-        ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
-        DiscreteCoordinates coords = area.getPlayerSpawnPosition();
-        player = new ICWarsPlayer(area, Orientation.DOWN, coords,"icwars/friendlyTank");
-        player.enterArea(area, coords);
-        player.centerCamera();
-        }
+        //ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
+        //DiscreteCoordinates coords = area.getPlayerSpawnPosition();
+        //player = new ICWarsPlayer(area, Orientation.DOWN, coords,"icwars/friendlyTank");
+        //player.enterArea(area, coords);
+        //player.centerCamera();
     }
 
     @Override
