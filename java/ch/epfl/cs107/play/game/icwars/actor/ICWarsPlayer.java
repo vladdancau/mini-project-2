@@ -20,7 +20,7 @@ import java.util.List;
 public class ICWarsPlayer extends MovableAreaEntity {
     private Sprite sprite;
     /// Animation duration in frame number
-    private final static int MOVE_DURATION = 8;
+    private final static int MOVE_DURATION = 4;
     /**
      * Demo actor
      *
@@ -79,9 +79,9 @@ public class ICWarsPlayer extends MovableAreaEntity {
      */
     public void enterArea(ICWarsArea area, DiscreteCoordinates position){
         area.registerActor(this);
-        area.setViewCandidate(this);
         setOwnerArea(area);
         setCurrentPosition(position.toVector());
+        centerCamera();
         resetMotion();
     }
 

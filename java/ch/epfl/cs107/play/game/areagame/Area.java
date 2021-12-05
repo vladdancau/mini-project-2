@@ -81,15 +81,11 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
 
         boolean errorHappen = false;
 
-        System.out.println("Error 0: " + Boolean.toString(errorHappen));
         if(a instanceof Interactor)
             errorHappen = !interactors.add((Interactor) a);
-        System.out.println("Error 1: " + Boolean.toString(errorHappen));
         if(a instanceof Interactable)
             errorHappen = errorHappen || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
-        System.out.println("Error 2: " + Boolean.toString(errorHappen));
         errorHappen = errorHappen || !actors.add(a);
-        System.out.println("Error 3: " + Boolean.toString(errorHappen));
 
         if(errorHappen && !safeMode) {
             System.out.println("Actor " + a + " cannot be completely added, so remove it from where it was");
@@ -338,10 +334,17 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
 
 
     private void updateCamera () {
-
         // Update expected viewport center
         if (viewCandidate != null) {
             viewCenter = viewCandidate.getPosition();
+            float x = viewCenter.x;
+            float y = viewCenter.y;
+            x = Math.max(x, window.getScaledWidth()/(float)2); // left margin
+            x = Math.min(x, getWidth() - window.getScaledWidth()/(float)2); // right margin
+            y = Math.max(y, window.getScaledHeight()/(float)2); // top margin
+            y = Math.min(y, getHeight() - window.getScaledHeight()/(float)2); // right margin
+            viewCenter = new Vector(x, y);
+
         }else { // Set default view to center
         	viewCenter = new Vector(getWidth()/(float)2,getHeight()/(float)2);
         }

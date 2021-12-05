@@ -10,6 +10,14 @@ Here we'll insert all the required comments for handing in the project.
 * [JavaDoc](https://proginsc.epfl.ch/wwwhiver/mini-projet2/JavaDoc/index.html)
 
 ### To do
-~Many things :)
+
+* [X] gitignore `.DS_Store` files
+* [X] camera stop at area edge
+* [X] remove centerCamera customization
+* [ ] add friendly units
+* [ ] select friendly units
+* [ ] move friendly units
+* [ ] enemy units + AI
+* te
 
 Final deadline **23.12.21**

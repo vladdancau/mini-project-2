@@ -26,7 +26,7 @@ public class ICWars extends AreaGame {
     public boolean begin(Window window, FileSystem fileSystem){
         if (super.begin(window, fileSystem)) {
             createAreas();
-            areaIndex = 0;
+            areaIndex = 1;
             initArea(areas[areaIndex]);
             return true;
         }
@@ -39,12 +39,11 @@ public class ICWars extends AreaGame {
     }
 
     private void initArea(String areaKey) {
-        System.out.println("Area: " + areaKey);
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
-        DiscreteCoordinates coords = new DiscreteCoordinates(15, 20);
-        ICWarsPlayer player = new ICWarsPlayer(area, Orientation.UP, coords, "ghost.2");
+        DiscreteCoordinates coords = new DiscreteCoordinates(5, 5);
+        ICWarsPlayer player = new ICWarsPlayer(area, Orientation.UP, coords, "icwars/allyCursor");
         player.enterArea(area, coords);
-        player.centerCamera();
+        System.out.println();
     }
 
     @Override
