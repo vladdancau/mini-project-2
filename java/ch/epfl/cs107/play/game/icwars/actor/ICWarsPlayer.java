@@ -25,7 +25,7 @@ public class ICWarsPlayer extends MovableAreaEntity {
         message = new TextGraphics(Integer.toString((int)hp), 0.4f, Color.BLUE);
         message.setParent(this);
         message.setAnchor(new Vector(-0.3f, 0.1f));
-        sprite = new Sprite(faction, 1.f, 1.f,this);
+        sprite = new Sprite(faction, 1.5f, 1.5f,this);
 
         resetMotion();
     }

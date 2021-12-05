@@ -7,6 +7,7 @@ Here we'll insert all the required comments for handing in the project.
 * [Web Page](https://proginsc.epfl.ch/wwwhiver/mini-projet2/descriptif.html)
 * [Tutoriel PDF](https://proginsc.epfl.ch/wwwhiver/mini-projet2/tuto-maquette.pdf)
 * [ICWars PDF](https://proginsc.epfl.ch/wwwhiver/mini-projet2/icwars.pdf)
+* [JavaDoc](https://proginsc.epfl.ch/wwwhiver/mini-projet2/JavaDoc/index.html)
 
 ### To do
 ~Many things :)
