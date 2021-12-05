@@ -1,6 +1,8 @@
 package ch.epfl.cs107.play.game.icwars.area;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.window.Window;
 
 public class ICWarsBehavior extends AreaBehavior {
@@ -23,16 +25,53 @@ public class ICWarsBehavior extends AreaBehavior {
         MOUNTAIN(-256, 4),
         CITY(-1,2);
 
-        final int type;
-        final boolean isWalkable;
+        private final int type;
+        private int defenseStars = 0;
 
-        ICWarsCellType(int type, boolean isWalkable){
+        ICWarsCellType(int type, int defenseStars){
             this.type = type;
-            this.isWalkable = isWalkable;
+            this.defenseStars = defenseStars;
         }
 
     }
-    public class ICWarsCell{
+    public class ICWarsCell extends AreaBehavior.Cell {
+        /// Type of the cell following the enum
+        private final ICWarsCellType type;
 
+        /**
+         * Default Tuto2Cell Constructor
+         * @param x (int): x coordinate of the cell
+         * @param y (int): y coordinate of the cell
+         * @param type (EnigmeCellType), not null
+         */
+        public ICWarsCell(int x, int y, ICWarsCellType type){
+            super(x, y);
+            this.type = type;
+        }
+
+        @Override
+        public boolean isCellInteractable() {
+            return true;
+        }
+
+        @Override
+        public boolean isViewInteractable() {
+            return false;
+        }
+
+        @Override
+        public void acceptInteraction(AreaInteractionVisitor v) {
+
+        }
+
+        @Override
+        protected boolean canLeave(Interactable entity) {
+            return false;
+        }
+
+        @Override
+        protected boolean canEnter(Interactable entity) {
+            return false;
+        }
     }
 }
