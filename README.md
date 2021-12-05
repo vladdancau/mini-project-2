@@ -1,8 +1,11 @@
 # CS-107 Mini-Projet 2
 
-~Here we'll insert all the required comments for handing in the project.
+Here we'll insert all the required comments for handing in the project.
 
-[WEB LINK] https://proginsc.epfl.ch/wwwhiver/mini-projet2/descriptif.html
-[PDF] https://proginsc.epfl.ch/wwwhiver/mini-projet2/icwars.pdf
+### Links
 
-Final delay 23.12.21
+* [Web Page](https://proginsc.epfl.ch/wwwhiver/mini-projet2/descriptif.html)
+* [Tutoriel PDF](https://proginsc.epfl.ch/wwwhiver/mini-projet2/tuto-maquette.pdf)
+* [ICWars PDF](https://proginsc.epfl.ch/wwwhiver/mini-projet2/icwars.pdf)
+
+Final deadline **23.12.21**
