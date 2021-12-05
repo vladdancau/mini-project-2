@@ -1,7 +1,12 @@
 package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.icwars.actor.ICWarsPlayer;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
+import ch.epfl.cs107.play.game.icwars.area.icwars.Level0;
+import ch.epfl.cs107.play.game.icwars.area.icwars.Level1;
 import ch.epfl.cs107.play.io.FileSystem;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 
 public class ICWars extends AreaGame {
@@ -10,9 +15,11 @@ public class ICWars extends AreaGame {
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
     private int areaIndex;
+    private ICWarsPlayer player;
 
     private void createAreas(){
-        //De completat o data cu crearea zonelor
+        addArea(new Level0());
+        addArea(new Level1());
     }
 
     public boolean begin(Window window, FileSystem fileSystem){
@@ -26,8 +33,12 @@ public class ICWars extends AreaGame {
     }
 
     private void initArea(String areaKey) {
-        // La fel
-
+        ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
+        DiscreteCoordinates coords = area.getPlayerSpawnPosition();
+        player = new ICWarsPlayer(area, Orientation.DOWN, coords,"icwars/friendlyTank");
+        player.enterArea(area, coords);
+        player.centerCamera();
+        }
     }
 
     @Override
