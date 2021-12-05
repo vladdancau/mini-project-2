@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.icwars.actor.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.icwars.Level0;
@@ -38,7 +39,12 @@ public class ICWars extends AreaGame {
     }
 
     private void initArea(String areaKey) {
-        setCurrentArea(areaKey, true);
+        System.out.println("Area: " + areaKey);
+        ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
+        DiscreteCoordinates coords = new DiscreteCoordinates(15, 20);
+        ICWarsPlayer player = new ICWarsPlayer(area, Orientation.UP, coords, "ghost.2");
+        player.enterArea(area, coords);
+        player.centerCamera();
     }
 
     @Override

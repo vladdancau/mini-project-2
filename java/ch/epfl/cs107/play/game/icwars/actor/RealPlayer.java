@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RealPlayer extends ICWarsPlayer {
 
-    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String faction) {
-        super(owner, orientation, coordinates, faction);
+    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName) {
+        super(owner, orientation, coordinates, spriteName);
     }
 }

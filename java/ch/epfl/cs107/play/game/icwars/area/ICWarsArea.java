@@ -3,12 +3,14 @@ package ch.epfl.cs107.play.game.icwars.area;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.tutosSolution.Tuto1;
+import ch.epfl.cs107.play.game.tutosSolution.Tuto2Behavior;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
 
 abstract public class ICWarsArea extends Area {
     private Window window;
+    private ICWarsBehavior behavior;
 
     /**
      * Create the area by adding all its actors
@@ -35,6 +37,8 @@ abstract public class ICWarsArea extends Area {
         this.window = window;
         if (super.begin(window, fileSystem)) {
             // Set the behavior map
+            behavior = new ICWarsBehavior(window, getTitle());
+            setBehavior(behavior);
             createArea();
             return true;
         }

@@ -56,7 +56,7 @@ public class ICWarsBehavior extends AreaBehavior {
 
         @Override
         public boolean isViewInteractable() {
-            return false;
+            return true;
         }
 
         @Override
@@ -66,12 +66,12 @@ public class ICWarsBehavior extends AreaBehavior {
 
         @Override
         protected boolean canLeave(Interactable entity) {
-            return false;
+            return true;
         }
 
         @Override
         protected boolean canEnter(Interactable entity) {
-            return false;
+            return true;
         }
     }
 }

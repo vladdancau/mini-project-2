@@ -81,11 +81,15 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
 
         boolean errorHappen = false;
 
+        System.out.println("Error 0: " + Boolean.toString(errorHappen));
         if(a instanceof Interactor)
             errorHappen = !interactors.add((Interactor) a);
+        System.out.println("Error 1: " + Boolean.toString(errorHappen));
         if(a instanceof Interactable)
             errorHappen = errorHappen || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+        System.out.println("Error 2: " + Boolean.toString(errorHappen));
         errorHappen = errorHappen || !actors.add(a);
+        System.out.println("Error 3: " + Boolean.toString(errorHappen));
 
         if(errorHappen && !safeMode) {
             System.out.println("Actor " + a + " cannot be completely added, so remove it from where it was");
