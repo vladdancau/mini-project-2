@@ -95,3 +95,4 @@ crashlytics-build.properties
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
+*.DS_Store
