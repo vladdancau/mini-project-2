@@ -70,8 +70,6 @@ public class ICWars extends AreaGame {
         DiscreteCoordinates coords = new DiscreteCoordinates(5, 5);
         player = new RealPlayer(area, Orientation.UP, coords, "icwars/allyCursor");
         player.enterArea(area, coords);
-        //player.selectUnit(0);
-        //System.out.println();
     }
 
     @Override
