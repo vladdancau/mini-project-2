@@ -8,6 +8,7 @@ import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGui;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
@@ -20,13 +21,13 @@ public class RealPlayer extends ICWarsPlayer {
     public ICWarsPlayerGui gui;
     protected GameState state = GameState.IDLE;
 
-    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName) {
-        super(owner, orientation, coordinates, spriteName, "ally");
+    public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName, String faction) {
+        super(owner, orientation, coordinates, spriteName, faction);
         gui = new ICWarsPlayerGui(this);
     }
 
     public void selectUnit(int index) {
-        selectedUnit = ((ICWarsArea) getOwnerArea()).friendlyUnits.get(index);
+        selectedUnit = ((ICWarsArea) getOwnerArea()).units.get(index);
     }
 
     /**
@@ -52,6 +53,7 @@ public class RealPlayer extends ICWarsPlayer {
                 break;
             case WAITING_TURN:
                 setState(GameState.NORMAL);
+                centerCamera();
                 break;
             case NORMAL:
                 movePlayer();
@@ -68,24 +70,25 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case SELECT_CELL:
-                // Loop through ((ICWarsArea) getOwnerArea()).friendlyUnits and find unit with same coordinates as this player
-                // set selectedUnit to the unit found
-
                 setState(GameState.NORMAL);
-                List<Unit> units = ((ICWarsArea) getOwnerArea()).friendlyUnits;
+                List<Unit> units = ((ICWarsArea) getOwnerArea()).units;
                 for (Unit u : units) {
-                    if (u.getPosition().equals(this.getPosition())) {
+                    if (u.getPosition().equals(this.getPosition()) && u.faction == this.faction) {
                         selectedUnit = u;
                         setState(GameState.MOVE_UNIT);
                     }
                 }
                 break;
             case MOVE_UNIT:
-                // TODO : forbid player from moving unit out of range
-                //if(getCurrentMainCellCoordinates()>= Window.)
                 movePlayer();
+
                 if(keyboard.get(Keyboard.ENTER).isPressed()){
-                    selectedUnit.changePosition(getCurrentMainCellCoordinates());
+                    Vector d = (getPosition().sub(selectedUnit.getPosition()));
+                    int movableRadius = Unit.UnitType.valueOf(selectedUnit.getName()).movableRadius;
+
+                    if (Math.abs(d.x) <= movableRadius && Math.abs(d.y) <= movableRadius)
+                        selectedUnit.changePosition(getCurrentMainCellCoordinates());
+
                     selectedUnit = null;
                     setState(GameState.NORMAL);
                 }

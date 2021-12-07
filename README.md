@@ -16,11 +16,12 @@ Here we'll insert all the required comments for handing in the project.
 * [X] remove centerCamera customization
 * [X] add friendly units
 * [X] `ICWarsPlayerGUI`
-* [ ] more accurate range init
+* [X] more accurate range init
 * [X] select friendly units
-  * [ ] select own units only
-* [ ] center to current player
-* [ ] move friendly units
+* [ ] select own units only
+* [X] center to current player
+* [X] move friendly units
+* [ ] test if unit can be moved to position
 * [ ] unit action
 * [ ] enemy units + AI
 * [ ] info box

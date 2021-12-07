@@ -23,5 +23,6 @@ public class Level0 extends ICWarsArea {
         addUnit(new Unit(this, "ROCKET", "ally", new DiscreteCoordinates(5, 5)));
         addUnit(new Unit(this, "SOLDIER", "ally", new DiscreteCoordinates(3, 4)));
         addUnit(new Unit(this, "TANK", "ally", new DiscreteCoordinates(5, 3)));
+        addUnit(new Unit(this, "TANK", "enemy", new DiscreteCoordinates(2, 1)));
     }
 }

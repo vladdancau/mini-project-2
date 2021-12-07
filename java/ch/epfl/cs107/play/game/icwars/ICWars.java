@@ -72,19 +72,19 @@ public class ICWars extends AreaGame {
         players = new ArrayList<ICWarsPlayer>();
 
         DiscreteCoordinates coords1 = new DiscreteCoordinates(4, 4);
-        ICWarsPlayer player1 = new RealPlayer(area, Orientation.UP, coords1, "icwars/allyCursor");
+        ICWarsPlayer player1 = new RealPlayer(area, Orientation.UP, coords1, "icwars/allyCursor", "ally");
         player1.enterArea(area, coords1);
         players.add(player1);
 
         DiscreteCoordinates coords2 = new DiscreteCoordinates(6, 6);
-        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords2, "icwars/enemyCursor");
+        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords2, "icwars/enemyCursor", "enemy");
         player2.enterArea(area, coords2);
         players.add(player2);
 
         player1.setNextPlayer(player2);
         player2.setNextPlayer(player1);
 
-        player2.setState(ICWarsPlayer.GameState.NORMAL);
+        player2.setState(ICWarsPlayer.GameState.WAITING_TURN);
     }
 
     @Override

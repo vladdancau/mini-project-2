@@ -24,20 +24,15 @@ abstract public class ICWarsArea extends Area {
      */
     protected abstract void createArea();
 
-    public List<Unit> friendlyUnits;
-    public List<Unit> enemyUnits;
+    public List<Unit> units;
 
     public ICWarsArea() {
         super();
-        friendlyUnits = new ArrayList<Unit>();
-        enemyUnits = new ArrayList<Unit>();
+        units = new ArrayList<Unit>();
     }
 
     public void addUnit(Unit u) {
-        if (u.faction == "ally")
-            friendlyUnits.add(u);
-        else
-            enemyUnits.add(u);
+        units.add(u);
         registerActor(u);
     }
 
