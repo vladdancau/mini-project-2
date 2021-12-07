@@ -45,17 +45,19 @@ public class ICWars extends AreaGame {
         Keyboard keyboard = getWindow().getKeyboard();
         if(keyboard.get(Keyboard.N).isPressed()) {
             areaIndex = (areaIndex + 1);
-            if(areaIndex>=areas.length){
+            if(areaIndex >= areas.length){
                 end();
                 System.out.println("END");
             }
-            else if(areaIndex<=areas.length){
+            else {
                 initArea(areas[areaIndex]);
             }
-
         }
         else if(keyboard.get(Keyboard.R).isPressed()) {
-            System.out.println("TEST KEY R");
+            System.out.println("GAME RESET");
+            createAreas();
+            areaIndex = 0;
+            initArea(areas[areaIndex]);
         }
 
     }
