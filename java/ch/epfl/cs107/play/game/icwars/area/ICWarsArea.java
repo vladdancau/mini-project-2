@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.icwars.area;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
+import ch.epfl.cs107.play.game.icwars.actor.Unit;
 import ch.epfl.cs107.play.game.icwars.area.icwars.Level0;
 import ch.epfl.cs107.play.game.tutosSolution.Tuto1;
 import ch.epfl.cs107.play.game.tutosSolution.Tuto2Behavior;
@@ -10,6 +11,9 @@ import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
+
+import java.util.ArrayList;
+import java.util.List;
 
 abstract public class ICWarsArea extends Area {
     private Window window;
@@ -20,11 +24,27 @@ abstract public class ICWarsArea extends Area {
      */
     protected abstract void createArea();
 
+    public List<Unit> friendlyUnits;
+    public List<Unit> enemyUnits;
+
+    public ICWarsArea() {
+        super();
+        friendlyUnits = new ArrayList<Unit>();
+        enemyUnits = new ArrayList<Unit>();
+    }
+
+    public void addUnit(Unit u) {
+        if (u.faction == "ally")
+            friendlyUnits.add(u);
+        else
+            enemyUnits.add(u);
+        registerActor(u);
+    }
+
     @Override
     public int getWidth() {
         Image behaviorMap = window.getImage(ResourcePath.getBehavior(getTitle()), null, false);
         return  behaviorMap.getWidth();
-
     }
 
     @Override
