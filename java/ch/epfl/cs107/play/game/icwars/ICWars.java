@@ -13,6 +13,8 @@ import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ICWars extends AreaGame {
@@ -21,7 +23,7 @@ public class ICWars extends AreaGame {
     private final String[] areas = {"icwars/Level0", "icwars/Level1"};
 
     private int areaIndex;
-    private ICWarsPlayer player;
+    private List<ICWarsPlayer> players;
 
     private void createAreas(){
         addArea(new Level0());
@@ -60,16 +62,29 @@ public class ICWars extends AreaGame {
             initArea(areas[areaIndex]);
         }
 
-        if (keyboard.get(Keyboard.U).isReleased()) {
-            ((RealPlayer)player).selectUnit (1); // 0, 1 ...
-        }
+        //if (keyboard.get(Keyboard.U).isReleased()) {
+        //    ((RealPlayer)player).selectUnit (1); // 0, 1 ...
+        //}
     }
 
     private void initArea(String areaKey) {
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
-        DiscreteCoordinates coords = new DiscreteCoordinates(5, 5);
-        player = new RealPlayer(area, Orientation.UP, coords, "icwars/allyCursor");
-        player.enterArea(area, coords);
+        players = new ArrayList<ICWarsPlayer>();
+
+        DiscreteCoordinates coords1 = new DiscreteCoordinates(4, 4);
+        ICWarsPlayer player1 = new RealPlayer(area, Orientation.UP, coords1, "icwars/allyCursor");
+        player1.enterArea(area, coords1);
+        players.add(player1);
+
+        DiscreteCoordinates coords2 = new DiscreteCoordinates(6, 6);
+        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords2, "icwars/enemyCursor");
+        player2.enterArea(area, coords2);
+        players.add(player2);
+
+        player1.setNextPlayer(player2);
+        player2.setNextPlayer(player1);
+
+        player2.setState(ICWarsPlayer.GameState.NORMAL);
     }
 
     @Override

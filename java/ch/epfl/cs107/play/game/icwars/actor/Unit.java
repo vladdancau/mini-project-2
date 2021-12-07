@@ -100,4 +100,11 @@ public class Unit extends ICWarsActor {
             new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
         }
     }
+
+    @Override
+    public boolean changePosition(DiscreteCoordinates newPosition) {
+        super.changePosition(newPosition);
+        initRange();
+        return true;
+    }
 }

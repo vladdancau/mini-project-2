@@ -109,7 +109,7 @@ public class ImageGraphics extends Node implements Graphics {
     public ImageGraphics(String name, float width, float height) {
         this(name, width, height, null, Vector.ZERO);
     }
-   
+
     /**
      * Sets image name.
      * @param name (String): new image name, may be null

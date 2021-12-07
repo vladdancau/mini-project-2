@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.icwars.actor;
 
+import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
@@ -18,6 +19,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ICWarsPlayer extends ICWarsActor {
+    private GameState state = GameState.IDLE;
+    ICWarsPlayer nextPlayer;
+
     public ICWarsPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName, String faction) {
         super(owner, orientation, coordinates, spriteName, faction);
         resetMotion();
@@ -57,5 +61,36 @@ public class ICWarsPlayer extends ICWarsActor {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+    }
+
+    public void setState(GameState s) {
+        state = s;
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void endTurn() {
+        setState(GameState.IDLE);
+        nextPlayer.beginTurn();
+    }
+
+    public void beginTurn() {
+        setState(GameState.WAITING_TURN);
+    }
+
+    public void setNextPlayer(ICWarsPlayer nextPlayer) {
+        this.nextPlayer = nextPlayer;
+    }
+
+    public enum GameState {
+        IDLE,
+        WAITING_TURN,
+        NORMAL,
+        SELECT_CELL,
+        MOVE_UNIT,
+        ACTION_SELECTION,
+        ACTION;
     }
 }
