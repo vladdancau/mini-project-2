@@ -18,6 +18,6 @@ Here we'll insert all the required comments for handing in the project.
 * [ ] select friendly units
 * [ ] move friendly units
 * [ ] enemy units + AI
-* te
+* [ ] info box
 
 Final deadline **23.12.21**
