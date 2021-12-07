@@ -60,14 +60,18 @@ public class ICWars extends AreaGame {
             initArea(areas[areaIndex]);
         }
 
+        if (keyboard.get(Keyboard.U).isReleased()) {
+            ((RealPlayer)player).selectUnit (1); // 0, 1 ...
+        }
     }
 
     private void initArea(String areaKey) {
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
         DiscreteCoordinates coords = new DiscreteCoordinates(5, 5);
-        ICWarsPlayer player = new RealPlayer(area, Orientation.UP, coords, "icwars/allyCursor");
+        player = new RealPlayer(area, Orientation.UP, coords, "icwars/allyCursor");
         player.enterArea(area, coords);
-        System.out.println();
+        //player.selectUnit(0);
+        //System.out.println();
     }
 
     @Override

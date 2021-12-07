@@ -77,10 +77,7 @@ public class ICWarsBehavior extends AreaBehavior {
         }
 
         @Override
-        protected boolean canEnter(Interactable entity) {
-            return true;
-        }
-
+        protected boolean canEnter(Interactable entitu) { return true; }
 
         @Override
         public boolean isCellInteractable() {

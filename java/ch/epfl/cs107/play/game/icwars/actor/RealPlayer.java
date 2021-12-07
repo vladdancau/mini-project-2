@@ -13,9 +13,14 @@ import ch.epfl.cs107.play.window.Keyboard;
 import java.util.List;
 
 public class RealPlayer extends ICWarsPlayer {
+    public Unit selectedUnit;
 
     public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName) {
         super(owner, orientation, coordinates, spriteName, "ally");
+    }
+
+    public void selectUnit(int index) {
+        selectedUnit = ((ICWarsArea) getOwnerArea()).friendlyUnits.get(index);
     }
 
     /**
@@ -53,5 +58,12 @@ public class RealPlayer extends ICWarsPlayer {
     public void enterArea(ICWarsArea area, DiscreteCoordinates position){
         super.enterArea(area, position);
         centerCamera();
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        if (selectedUnit != null)
+            selectedUnit.drawRangeAndPathTo(getCurrentMainCellCoordinates(), canvas);
     }
 }
