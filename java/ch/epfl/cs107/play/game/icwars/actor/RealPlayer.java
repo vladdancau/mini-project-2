@@ -17,17 +17,11 @@ import ch.epfl.cs107.play.window.Window;
 import java.util.List;
 
 public class RealPlayer extends ICWarsPlayer {
-    public Unit selectedUnit;
     public ICWarsPlayerGui gui;
-    protected GameState state = GameState.IDLE;
 
     public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName, String faction) {
         super(owner, orientation, coordinates, spriteName, faction);
-        gui = new ICWarsPlayerGui(this);
-    }
-
-    public void selectUnit(int index) {
-        selectedUnit = ((ICWarsArea) getOwnerArea()).units.get(index);
+        gui = new ICWarsPlayerGui(this, getOwnerArea().getCameraScaleFactor());
     }
 
     /**
@@ -70,13 +64,12 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case SELECT_CELL:
-                setState(GameState.NORMAL);;
-                List<Unit> units = ((ICWarsArea) getOwnerArea()).units;
+                setState(GameState.NORMAL);
+                List<Unit> units = ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction);
                 for (Unit u : units) {
-                    if (u.getPosition().equals(this.getPosition()) && u.faction == this.faction) {
-                        selectedUnit = u;
+                    if (u.getPosition().equals(this.getPosition())) {
+                        this.selectUnit(u);
                         u.initRange();
-                        setState(GameState.MOVE_UNIT);
                     }
                 }
 
@@ -88,15 +81,26 @@ public class RealPlayer extends ICWarsPlayer {
                     Vector d = (getPosition().sub(selectedUnit.getPosition()));
                     int movableRadius = Unit.UnitType.valueOf(selectedUnit.getName()).movableRadius;
 
-                    if (Math.abs(d.x) <= movableRadius && Math.abs(d.y) <= movableRadius)
-                        selectedUnit.changePosition(getCurrentMainCellCoordinates());
-                    selectedUnit = null;
-                    setState(GameState.NORMAL);
+                    DiscreteCoordinates coords = getCurrentMainCellCoordinates();
+                    if (selectedUnit.canMoveTo(coords)) {
+                        selectedUnit.changePosition(coords);
+                        selectedUnit.setWaitingStatus(true);
+                        actions = selectedUnit.getActions();
+                        gui.setActions(actions);
+                        setState(GameState.ACTION_SELECTION);
+                    }
                 }
                 break;
             case ACTION_SELECTION:
+                for (Unit.Action a : actions) {
+                    if (keyboard.get(a.key).isPressed()) {
+                        selectedAction = a;
+                        setState(GameState.ACTION);
+                    }
+                }
                 break;
             case ACTION:
+                selectedAction.doAction(deltaTime, this, keyboard);
                 break;
         }
 
