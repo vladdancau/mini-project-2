@@ -19,12 +19,27 @@ import java.util.Collections;
 import java.util.List;
 
 public class ICWarsPlayer extends ICWarsActor {
-    private GameState state = GameState.IDLE;
     ICWarsPlayer nextPlayer;
+    protected List<Unit.Action> actions;
+    protected Unit.Action selectedAction;
+
+    public Unit selectedUnit;
+    protected GameState state = GameState.IDLE;
 
     public ICWarsPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String spriteName, String faction) {
         super(owner, orientation, coordinates, spriteName, faction);
         resetMotion();
+    }
+
+    public void selectUnit(int index) {
+        selectedUnit = ((ICWarsArea) getOwnerArea()).units.get(index);
+    }
+    public void selectUnit(Unit u) {
+        if (u != null && u.getWaitingStatus())
+            return;
+
+        selectedUnit = u;
+        setState(GameState.MOVE_UNIT);
     }
 
     /**
@@ -78,6 +93,10 @@ public class ICWarsPlayer extends ICWarsActor {
 
     public void beginTurn() {
         setState(GameState.WAITING_TURN);
+
+        List<Unit> friendlyUnits = ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction);
+        for (Unit u : friendlyUnits)
+            u.setWaitingStatus(false);
     }
 
     public void setNextPlayer(ICWarsPlayer nextPlayer) {

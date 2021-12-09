@@ -36,6 +36,22 @@ abstract public class ICWarsArea extends Area {
         registerActor(u);
     }
 
+    public List<Unit> getFriendlyUnits(String faction) {
+        List<Unit> unitList = new ArrayList<>();
+        for (Unit u : units)
+            if (u.faction == faction)
+                unitList.add(u);
+        return unitList;
+    }
+
+    public List<Unit> getEnemyUnits(String faction) {
+        List<Unit> unitList = new ArrayList<>();
+        for (Unit u : units)
+            if (u.faction != faction)
+                unitList.add(u);
+        return unitList;
+    }
+
     @Override
     public int getWidth() {
         Image behaviorMap = window.getImage(ResourcePath.getBehavior(getTitle()), null, false);

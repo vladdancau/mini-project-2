@@ -34,6 +34,14 @@ public class ICWarsBehavior extends AreaBehavior {
             System.out.println(type);
             return null;
         }
+
+        public String typeToString() {
+            return this.toString();
+        }
+
+        public int getDefenseStar() {
+            return defenseStars;
+        }
     }
 
     /**
@@ -91,6 +99,7 @@ public class ICWarsBehavior extends AreaBehavior {
 
         @Override
         public void acceptInteraction(AreaInteractionVisitor v) {
+            System.out.println(this.type);
         }
 
     }
