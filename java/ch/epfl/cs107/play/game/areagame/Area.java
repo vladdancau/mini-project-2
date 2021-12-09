@@ -332,7 +332,6 @@ public abstract class Area implements Playable, PauseMenu.Pausable {
         interactablesToEnter.clear();
     }
 
-
     private void updateCamera () {
         // Update expected viewport center
         if (viewCandidate != null) {

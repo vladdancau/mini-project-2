@@ -69,8 +69,10 @@ public class RealPlayer extends ICWarsPlayer {
                 for (Unit u : units) {
                     if (u.getPosition().equals(this.getPosition())) {
                         this.selectUnit(u);
+                        u.initRange();
                     }
                 }
+
                 break;
             case MOVE_UNIT:
                 movePlayer();

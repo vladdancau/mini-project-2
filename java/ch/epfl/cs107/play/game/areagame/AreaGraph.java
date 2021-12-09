@@ -168,8 +168,7 @@ public class AreaGraph {
      * @param to (DiscreteCoordinates): sink node of the desired path, not null
      * @return (Iterator of Orientation): return an iterator containing the shortest path from source to sink, or null if the path does not exists !
      */
-    public Queue<Orientation> shortestPath(DiscreteCoordinates from, DiscreteCoordinates to){
-
+    public Queue<Orientation> shortestPath(DiscreteCoordinates from, DiscreteCoordinates to) {
         AreaNode start = nodes.get(from);
         AreaNode goal = nodes.get(to);
 
@@ -216,7 +215,29 @@ public class AreaGraph {
             }
         }
 
-        return null;
+
+        // No path found, generate naive path
+        int x = from.x;
+        int y = from.y;
+        List<Orientation> path = new ArrayList<>();
+        while (x < to.x) {
+            x++;
+            path.add(Orientation.RIGHT);
+        }
+        while (x > to.x) {
+            x--;
+            path.add(Orientation.LEFT);
+        }
+        while (y < to.y) {
+            y++;
+            path.add(Orientation.UP);
+        }
+        while (y > to.y) {
+            y--;
+            path.add(Orientation.DOWN);
+        }
+
+        return new LinkedList<Orientation>(path);
     }
 
     private Queue<Orientation> reconstructPath(Map<AreaNode, AreaNode> cameFrom, AreaNode current) {
