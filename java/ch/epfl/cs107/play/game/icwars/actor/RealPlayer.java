@@ -132,10 +132,7 @@ public class RealPlayer extends ICWarsPlayer {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         gui.draw(canvas);
-    }
-
-    public void drawSelectedUnitRange(Canvas canvas) {
-        if (selectedUnit != null)
-            selectedUnit.drawRangeAndPathTo(getCurrentMainCellCoordinates(), canvas);
+        if (selectedAction != null)
+            selectedAction.draw(canvas);
     }
 }

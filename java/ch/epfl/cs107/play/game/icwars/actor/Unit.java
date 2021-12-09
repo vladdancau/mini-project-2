@@ -1,12 +1,15 @@
 package ch.epfl.cs107.play.game.icwars.actor;
 import ch.epfl.cs107.play.game.actor.Graphics;
+import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.RegionOfInterest;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
@@ -68,9 +71,31 @@ public class Unit extends ICWarsActor {
             }
     }
 
+    public void initAttackRange() {
+        int unitRange = UnitType.valueOf(type).movableRadius * 2;
+        int fromX = getCurrentMainCellCoordinates().x;
+        int fromY = getCurrentMainCellCoordinates().y;
+
+        range = new ICWarsRange();
+
+        for (int x = -unitRange; x <= unitRange; x++)
+            for (int y = -unitRange; y <= unitRange; y++) {
+                int rx = x + fromX;
+                int ry = y + fromY;
+                if (canAttack(rx, ry)) {
+                    boolean hasLeftEdge = canAttack(rx - 1, ry);
+                    boolean hasUpEdge = canAttack(rx, ry + 1);
+                    boolean hasRightEdge = canAttack(rx + 1, ry);
+                    boolean hasDownEdge = canAttack(rx, ry - 1);
+                    range.addNode(new DiscreteCoordinates(rx, ry), hasLeftEdge, hasUpEdge, hasRightEdge, hasDownEdge);
+                }
+            }
+    }
+
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<>();
         actions.add(new WaitAction(this, getOwnerArea()));
+        actions.add(new AttackAction(this, getOwnerArea()));
         return actions;
     }
 
@@ -134,12 +159,22 @@ public class Unit extends ICWarsActor {
 
         // test if unit not already there
         List<Unit> units = ((ICWarsArea) getOwnerArea()).getUnits();
-        // coords
         for(int i = 0; i < units.size(); i++)
             if(units.get(i) != this && units.get(i).getPosition().equals(coords.toVector()))
                 return false;
 
         return true;
+    }
+
+    public boolean canAttack(int x, int y) {
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
+        int damageRadius = UnitType.valueOf(this.type).movableRadius;
+        return Math.abs(coords.x - x) + Math.abs(coords.y - y) <= damageRadius;
+    }
+
+    public boolean canAttack(Unit other) {
+        DiscreteCoordinates coords = other.getCurrentMainCellCoordinates();
+        return canAttack(coords.x, coords.y);
     }
     
     public void setOpacity(float opacity) {
@@ -169,7 +204,6 @@ public class Unit extends ICWarsActor {
     public abstract class Action implements Graphics {
         protected Unit unit;
         protected Area area;
-        private boolean ongoing;
 
         public String name;
         public int key;
@@ -178,7 +212,6 @@ public class Unit extends ICWarsActor {
         public Action(Unit unit, Area area) {
             this.unit = unit;
             this.area = area;
-            this.ongoing = true;
         }
 
         public String getName() {
@@ -191,14 +224,6 @@ public class Unit extends ICWarsActor {
 
         public abstract void draw(Canvas canvas);
         public abstract void doAction(float dt, ICWarsPlayer player, Keyboard keyboard);
-
-        protected void endAction() {
-            ongoing = false;
-        }
-
-        private boolean isOngoing() {
-            return ongoing;
-        }
     }
 
     private class WaitAction extends Action {
@@ -210,10 +235,59 @@ public class Unit extends ICWarsActor {
 
         public void draw(Canvas canvas) {}
         public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
-            unit.setWaitingStatus(true);
-            player.selectUnit(null);
-            player.setState(ICWarsPlayer.GameState.NORMAL);
-            endAction();
+            player.deselectUnit();
+        }
+    }
+
+    private class AttackAction extends Action {
+        private List<Unit> targets;
+        private ImageGraphics sprite = null;
+        int targetIx;
+        ICWarsPlayer player;
+
+        public AttackAction(Unit unit, Area area) {
+            super(unit, area);
+            name = "(A)ttack";
+            key = Keyboard.A;
+        }
+
+        public void draw(Canvas canvas) {
+            if (sprite != null) {
+                player.drawSelectedUnitRange(canvas);
+                sprite.draw(canvas);
+            }
+        }
+
+        public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
+            if (sprite == null) { // Action not initialized
+                this.player = player;
+                player.selectedUnit.initAttackRange();
+                sprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f, new RegionOfInterest(26*18, 19*18,16,16));
+
+                List<Unit> enemies = ((ICWarsArea) area).getEnemyUnits(unit.faction);
+                targets = new ArrayList<>();
+                for (Unit u : enemies)
+                    if (unit.canAttack(u))
+                        targets.add(u);
+                selectTarget(0);
+            }
+
+            if (keyboard.get(Keyboard.ENTER).isPressed()) {
+                System.out.println("Attacking");
+                player.deselectUnit();
+            } else if (keyboard.get(Keyboard.LEFT).isPressed()) {
+                selectTarget(targetIx - 1);
+            } else if (keyboard.get(Keyboard.RIGHT).isPressed()) {
+                selectTarget(targetIx + 1);
+            }
+        }
+
+        private void selectTarget(int ix) {
+            if (targets.size() == 0)
+                return;
+            targetIx = ix = (ix % targets.size() + targets.size()) % targets.size();
+            targets.get(ix).centerCamera();
+            sprite.setAnchor(targets.get(ix).getPosition().add(0.5f, -0.5f));
         }
     }
 }

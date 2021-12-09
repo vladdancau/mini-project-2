@@ -35,12 +35,25 @@ public class ICWarsPlayer extends ICWarsActor {
         selectedUnit = ((ICWarsArea) getOwnerArea()).units.get(index);
     }
     public void selectUnit(Unit u) {
-        if (u != null && u.getWaitingStatus())
+        if (u.getWaitingStatus())
             return;
 
         selectedUnit = u;
         setState(GameState.MOVE_UNIT);
     }
+    public void deselectUnit() {
+        selectedUnit.setWaitingStatus(true);
+        selectedUnit = null;
+        selectedAction = null;
+        setState(GameState.NORMAL);
+    }
+
+    public void drawSelectedUnitRange(Canvas canvas) {
+        if (selectedUnit != null) {
+            selectedUnit.drawRangeAndPathTo(getCurrentMainCellCoordinates(), canvas);
+        }
+    }
+
 
     /**
      * Leave an area by unregister this player

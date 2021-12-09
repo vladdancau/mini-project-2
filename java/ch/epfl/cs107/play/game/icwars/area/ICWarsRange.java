@@ -13,6 +13,8 @@ import ch.epfl.cs107.play.window.Canvas;
  */
 public class ICWarsRange extends AreaGraph implements Graphics {
 
+    static float rangeOpacity = 0.4f;
+
     @Override
     public void addNode(DiscreteCoordinates coordinates, boolean hasLeftEdge, boolean hasUpEdge, boolean hasRightEdge, boolean hasDownEdge) {
         getNodes().putIfAbsent(coordinates, new RangeNode(coordinates, hasLeftEdge, hasUpEdge, hasRightEdge, hasDownEdge));
@@ -26,67 +28,67 @@ public class ICWarsRange extends AreaGraph implements Graphics {
 
             if (!hasUpEdge && !hasRightEdge && !hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(3*18, 5*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(3*18, 5*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && hasRightEdge && hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(0*18, 5*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(0*18, 5*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && hasRightEdge && hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(1*18, 5*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(1*18, 5*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && !hasRightEdge && hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(2*18, 5*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(2*18, 5*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && !hasRightEdge && hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(2*18, 6*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(2*18, 6*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && !hasRightEdge && !hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(2*18, 7*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(2*18, 7*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && hasRightEdge && !hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(1*18, 7*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(1*18, 7*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && hasRightEdge && !hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(0*18, 7*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(0*18, 7*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && hasRightEdge && hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(0*18, 6*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(0*18, 6*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && hasRightEdge && !hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(3*18, 3*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(3*18, 3*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && hasRightEdge && !hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(4*18, 3*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(4*18, 3*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && !hasRightEdge && !hasDownEdge && hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(5*18, 3*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(5*18, 3*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && !hasRightEdge && !hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(4*18, 11*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(4*18, 11*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (!hasUpEdge && !hasRightEdge && hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(5*18, 11*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(5*18, 11*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else if (hasUpEdge && !hasRightEdge && hasDownEdge && !hasLeftEdge)
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(6*18, 11*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(6*18, 11*18,16,16), coordinates.toVector(), rangeOpacity, 500);
 
             else
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
-                        new RegionOfInterest(1*18, 6*18,16,16), coordinates.toVector(), 0.6f, 500);
+                        new RegionOfInterest(1*18, 6*18,16,16), coordinates.toVector(), rangeOpacity, 500);
         }
 
         @Override
