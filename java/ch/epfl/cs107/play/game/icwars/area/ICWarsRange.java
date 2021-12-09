@@ -60,6 +60,26 @@ public class ICWarsRange extends AreaGraph implements Graphics {
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
                         new RegionOfInterest(0*18, 6*18,16,16), coordinates.toVector(), 0.6f, 500);
 
+            else if (!hasUpEdge && hasRightEdge && !hasDownEdge && !hasLeftEdge)
+                nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
+                        new RegionOfInterest(3*18, 3*18,16,16), coordinates.toVector(), 0.6f, 500);
+
+            else if (!hasUpEdge && hasRightEdge && !hasDownEdge && hasLeftEdge)
+                nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
+                        new RegionOfInterest(4*18, 3*18,16,16), coordinates.toVector(), 0.6f, 500);
+
+            else if (!hasUpEdge && !hasRightEdge && !hasDownEdge && hasLeftEdge)
+                nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
+                        new RegionOfInterest(5*18, 3*18,16,16), coordinates.toVector(), 0.6f, 500);
+
+            else if (hasUpEdge && !hasRightEdge && !hasDownEdge && !hasLeftEdge)
+                nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
+                        new RegionOfInterest(4*18, 11*18,16,16), coordinates.toVector(), 0.6f, 500);
+
+            else if (!hasUpEdge && !hasRightEdge && hasDownEdge && !hasLeftEdge)
+                nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
+                        new RegionOfInterest(5*18, 11*18,16,16), coordinates.toVector(), 0.6f, 500);
+
             else
                 nodeSprite = new ImageGraphics(ResourcePath.getSprite("icwars/UIpackSheet"), 1f, 1f,
                         new RegionOfInterest(1*18, 6*18,16,16), coordinates.toVector(), 0.6f, 500);

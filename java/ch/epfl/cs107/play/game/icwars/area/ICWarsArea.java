@@ -26,6 +26,13 @@ abstract public class ICWarsArea extends Area {
 
     public List<Unit> units;
 
+    public List<Unit> getUnits() {
+        List<Unit> units = new ArrayList<>();
+        for (Unit u : this.units)
+            units.add(u);
+        return units;
+    }
+
     public ICWarsArea() {
         super();
         units = new ArrayList<Unit>();

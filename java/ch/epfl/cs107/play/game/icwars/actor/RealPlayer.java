@@ -70,14 +70,16 @@ public class RealPlayer extends ICWarsPlayer {
 
                 break;
             case SELECT_CELL:
-                setState(GameState.NORMAL);
+                setState(GameState.NORMAL);;
                 List<Unit> units = ((ICWarsArea) getOwnerArea()).units;
                 for (Unit u : units) {
                     if (u.getPosition().equals(this.getPosition()) && u.faction == this.faction) {
                         selectedUnit = u;
+                        u.initRange();
                         setState(GameState.MOVE_UNIT);
                     }
                 }
+
                 break;
             case MOVE_UNIT:
                 movePlayer();
@@ -88,7 +90,6 @@ public class RealPlayer extends ICWarsPlayer {
 
                     if (Math.abs(d.x) <= movableRadius && Math.abs(d.y) <= movableRadius)
                         selectedUnit.changePosition(getCurrentMainCellCoordinates());
-
                     selectedUnit = null;
                     setState(GameState.NORMAL);
                 }

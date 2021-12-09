@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ICWarsActor extends MovableAreaEntity {
-    private Sprite sprite;
+    protected Sprite sprite;
     public String faction;
 
     /// Animation duration in frame number

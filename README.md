@@ -26,4 +26,8 @@ Here we'll insert all the required comments for handing in the project.
 * [ ] enemy units + AI
 * [ ] info box
 
+### To fix
+
+* [ ] Range not displaying correctly for tiles out of initial view
+
 Final deadline **23.12.21**
