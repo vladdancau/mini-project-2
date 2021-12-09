@@ -90,7 +90,7 @@ public class ICWarsPlayer extends ICWarsActor {
         List<Unit> friendlyUnits = ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction);
         for (Unit u : friendlyUnits)
             u.setWaitingStatus(false);
-        
+
         setState(GameState.IDLE);
         nextPlayer.beginTurn();
     }
