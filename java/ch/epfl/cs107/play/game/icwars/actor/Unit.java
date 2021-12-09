@@ -31,6 +31,10 @@ public class Unit extends ICWarsActor {
 
     public void setWaitingStatus(boolean status) {
         waitingStatus = status;
+        if (waitingStatus)
+            setOpacity(0.5f);
+        else
+            setOpacity(1);
     }
 
     public boolean getWaitingStatus() {

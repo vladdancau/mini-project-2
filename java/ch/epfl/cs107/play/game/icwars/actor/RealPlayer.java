@@ -84,7 +84,7 @@ public class RealPlayer extends ICWarsPlayer {
                     DiscreteCoordinates coords = getCurrentMainCellCoordinates();
                     if (selectedUnit.canMoveTo(coords)) {
                         selectedUnit.changePosition(coords);
-                        selectedUnit.setWaitingStatus(true);
+                        //selectedUnit.setWaitingStatus(true);
                         actions = selectedUnit.getActions();
                         gui.setActions(actions);
                         setState(GameState.ACTION_SELECTION);
