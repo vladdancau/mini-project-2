@@ -6,7 +6,7 @@ import ch.epfl.cs107.play.game.actor.TextGraphics;
 //import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 //import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
 //import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
-import ch.epfl.cs107.play.game.icwars.actor.Unit;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
 import ch.epfl.cs107.play.math.*;
 import ch.epfl.cs107.play.math.Polygon;
 import ch.epfl.cs107.play.math.Shape;
@@ -20,7 +20,7 @@ public class ICWarsActionsPanel implements Graphics {
 
     private final float fontSize;
 
-    private List<Unit.Action> actions;
+    private List<Action> actions;
 
     /// Sprite and text graphics line
     private final ShapeGraphics background;
@@ -52,7 +52,7 @@ public class ICWarsActionsPanel implements Graphics {
         }
     }
 
-    public void setActions(List<Unit.Action> actions) {
+    public void setActions(List<Action> actions) {
         this.actions = actions;
         createActionsText();
     }

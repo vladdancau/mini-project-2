@@ -1,7 +1,7 @@
 package ch.epfl.cs107.play.game.icwars.area.icwars;
 
 import ch.epfl.cs107.play.game.areagame.actor.Background;
-import ch.epfl.cs107.play.game.icwars.actor.Unit;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 

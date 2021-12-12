@@ -1,27 +1,21 @@
 package ch.epfl.cs107.play.game.icwars.actor;
 
-import ch.epfl.cs107.play.game.Game;
-import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
-import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
-import ch.epfl.cs107.play.window.Keyboard;
 
-import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
 public class ICWarsPlayer extends ICWarsActor {
     ICWarsPlayer nextPlayer;
-    protected List<Unit.Action> actions;
-    protected Unit.Action selectedAction;
+    protected List<Action> actions;
+    protected Action selectedAction;
 
     public Unit selectedUnit;
     protected GameState state = GameState.IDLE;
@@ -64,7 +58,8 @@ public class ICWarsPlayer extends ICWarsActor {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
+        if (state != GameState.IDLE)
+            super.draw(canvas);
     }
 
     @Override

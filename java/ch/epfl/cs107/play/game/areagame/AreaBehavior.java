@@ -168,7 +168,6 @@ public abstract class AreaBehavior implements Interactable.Listener, Interactor.
             	if(droppable.canDrop())
             		droppable.receiveDropFrom(draggable);
         	}
-        		
         }
         
         /**

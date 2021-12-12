@@ -2,13 +2,9 @@ package ch.epfl.cs107.play.game.icwars.area;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
-import ch.epfl.cs107.play.game.icwars.actor.Unit;
-import ch.epfl.cs107.play.game.icwars.area.icwars.Level0;
+import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.tutosSolution.Tuto1;
-import ch.epfl.cs107.play.game.tutosSolution.Tuto2Behavior;
 import ch.epfl.cs107.play.io.FileSystem;
-import ch.epfl.cs107.play.math.Transform;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
 
@@ -41,6 +37,11 @@ abstract public class ICWarsArea extends Area {
     public void addUnit(Unit u) {
         units.add(u);
         registerActor(u);
+    }
+
+    public void removeUnit(Unit u) {
+        units.remove(u);
+        unregisterActor(u);
     }
 
     public List<Unit> getFriendlyUnits(String faction) {
