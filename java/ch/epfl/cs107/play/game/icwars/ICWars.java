@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.icwars;
 
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.icwars.actor.AIPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
@@ -44,6 +45,28 @@ public class ICWars extends AreaGame {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        List<ICWarsPlayer> defeatedPlayers = new ArrayList<>();
+        for (ICWarsPlayer player : players)
+            if (((ICWarsArea) getCurrentArea()).getFriendlyUnits(player.faction).isEmpty())
+                defeatedPlayers.add(player);
+
+        for (ICWarsPlayer player : defeatedPlayers) {
+            System.out.println(player.faction + " lost!");
+            players.remove(player);
+            getCurrentArea().unregisterActor(player);
+        }
+
+        for (ICWarsPlayer player : players)
+            while (!players.contains(player.getNextPlayer()))
+                player.setNextPlayer(player.getNextPlayer().getNextPlayer());
+
+        if (players.size() == 1) {
+            System.out.println(players.get(0).faction + " won!");
+            players.get(0).endTurn();
+            getCurrentArea().unregisterActor(players.get(0));
+            players.remove(players.get(0));
+        }
+
         Keyboard keyboard = getWindow().getKeyboard();
         if(keyboard.get(Keyboard.N).isPressed()) {
             areaIndex = (areaIndex + 1);
@@ -55,16 +78,12 @@ public class ICWars extends AreaGame {
                 initArea(areas[areaIndex]);
             }
         }
-        else if(keyboard.get(Keyboard.R).isPressed()) {
+        else if (keyboard.get(Keyboard.R).isPressed()) {
             System.out.println("GAME RESET");
             createAreas();
             areaIndex = 0;
             initArea(areas[areaIndex]);
         }
-
-        //if (keyboard.get(Keyboard.U).isReleased()) {
-        //    ((RealPlayer)player).selectUnit (1); // 0, 1 ...
-        //}
     }
 
     private void initArea(String areaKey) {
@@ -72,17 +91,19 @@ public class ICWars extends AreaGame {
         players = new ArrayList<ICWarsPlayer>();
 
         DiscreteCoordinates coords1 = new DiscreteCoordinates(4, 4);
-        ICWarsPlayer player1 = new RealPlayer(area, Orientation.UP, coords1, "icwars/allyCursor", "ally");
+        ICWarsPlayer player1 = new AIPlayer(area, Orientation.UP, coords1, "yellow");
         player1.enterArea(area, coords1);
         players.add(player1);
 
-        DiscreteCoordinates coords2 = new DiscreteCoordinates(6, 6);
-        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords2, "icwars/enemyCursor", "enemy");
+        DiscreteCoordinates coords2 = new DiscreteCoordinates(3, 3);
+        ICWarsPlayer player2 = new AIPlayer(area, Orientation.UP, coords2, "green");
         player2.enterArea(area, coords2);
         players.add(player2);
 
         player1.setNextPlayer(player2);
         player2.setNextPlayer(player1);
+
+        update(1);
 
         player2.setState(ICWarsPlayer.GameState.WAITING_TURN);
     }

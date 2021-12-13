@@ -14,9 +14,11 @@ public class Level0 extends ICWarsArea {
     @Override
     protected void createArea() {
         registerActor(new Background(this));
-        addUnit(new Unit(this, "ROCKET", "ally", new DiscreteCoordinates(5, 5)));
-        addUnit(new Unit(this, "SOLDIER", "ally", new DiscreteCoordinates(3, 4)));
-        addUnit(new Unit(this, "TANK", "ally", new DiscreteCoordinates(5, 3)));
-        addUnit(new Unit(this, "TANK", "enemy", new DiscreteCoordinates(6, 6)));
+        addUnit(new Unit(this, "ROCKET", "yellow", new DiscreteCoordinates(8, 0)));
+        addUnit(new Unit(this, "SOLDIER", "yellow", new DiscreteCoordinates(9, 1)));
+        addUnit(new Unit(this, "TANK", "yellow", new DiscreteCoordinates(9, 0)));
+        addUnit(new Unit(this, "TANK", "green", new DiscreteCoordinates(0, 9)));
+        addUnit(new Unit(this, "ROCKET", "green", new DiscreteCoordinates(0, 8)));
+        addUnit(new Unit(this, "SOLDIER", "green", new DiscreteCoordinates(0, 7)));
     }
 }

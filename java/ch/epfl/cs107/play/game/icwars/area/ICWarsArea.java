@@ -20,14 +20,7 @@ abstract public class ICWarsArea extends Area {
      */
     protected abstract void createArea();
 
-    public List<Unit> units;
-
-    public List<Unit> getUnits() {
-        List<Unit> units = new ArrayList<>();
-        for (Unit u : this.units)
-            units.add(u);
-        return units;
-    }
+    private List<Unit> units;
 
     public ICWarsArea() {
         super();
@@ -42,6 +35,13 @@ abstract public class ICWarsArea extends Area {
     public void removeUnit(Unit u) {
         units.remove(u);
         unregisterActor(u);
+    }
+
+    public List<Unit> getUnits() {
+        List<Unit> units = new ArrayList<>();
+        for (Unit u : this.units)
+            units.add(u);
+        return units;
     }
 
     public List<Unit> getFriendlyUnits(String faction) {
@@ -70,7 +70,6 @@ abstract public class ICWarsArea extends Area {
     public int getHeight() {
         Image behaviorMap = window.getImage(ResourcePath.getBehavior(getTitle()), null, false);
         return  behaviorMap.getHeight();
-
     }
 
     @Override

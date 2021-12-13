@@ -32,7 +32,7 @@ public class Unit extends ICWarsActor {
 
     public void setWaitingStatus(boolean status) {
         waitingStatus = status;
-        setOpacity(waitingStatus ? 1 : 0.5f);
+        setOpacity(waitingStatus ? 0.5f : 1);
     }
 
     public boolean getWaitingStatus() {
@@ -40,8 +40,7 @@ public class Unit extends ICWarsActor {
     }
 
     static private String getUnitSprite(String type, String faction) {
-        final String capitalizedType = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
-        final String spriteName = "icwars/" + (faction == "ally" ? "friendly" : "enemy") + capitalizedType;
+        final String spriteName = "icwars/" + faction + "/" + type.toLowerCase();
         return spriteName;
     }
 

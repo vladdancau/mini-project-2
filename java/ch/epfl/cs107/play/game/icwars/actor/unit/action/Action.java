@@ -30,5 +30,5 @@ public abstract class Action implements Graphics {
     }
 
     public abstract void draw(Canvas canvas);
-    public abstract void doAction(float dt, ICWarsPlayer player, Keyboard keyboard);
+    public abstract void doAction(float dt, ICWarsPlayer player);
 }

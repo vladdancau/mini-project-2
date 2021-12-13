@@ -9,12 +9,12 @@ import ch.epfl.cs107.play.window.Canvas;
 import java.util.List;
 
 public class ICWarsPlayerGui implements Graphics {
-    private RealPlayer player;
+    private ICWarsPlayer player;
     public static float FONT_SIZE = 15f;
     ICWarsActionsPanel actionsPanel;
     ICWarsInfoPanel infoPanel;
 
-    public ICWarsPlayerGui(RealPlayer player, float cameraScaleFactor) {
+    public ICWarsPlayerGui(ICWarsPlayer player, float cameraScaleFactor) {
         this.player = player;
         actionsPanel = new ICWarsActionsPanel(cameraScaleFactor);
         infoPanel = new ICWarsInfoPanel(cameraScaleFactor);

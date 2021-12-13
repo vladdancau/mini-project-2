@@ -14,7 +14,7 @@ public class WaitAction extends Action {
     }
 
     public void draw(Canvas canvas) {}
-    public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
+    public void doAction(float dt, ICWarsPlayer player) {
         player.deselectUnit();
     }
 }

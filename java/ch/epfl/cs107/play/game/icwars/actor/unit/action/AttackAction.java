@@ -32,7 +32,7 @@ public class AttackAction extends Action {
         }
     }
 
-    public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
+    public void doAction(float dt, ICWarsPlayer player) {
         if (sprite == null) { // Action not initialized
             this.player = player;
             player.selectedUnit.initAttackRange();
@@ -43,23 +43,25 @@ public class AttackAction extends Action {
             for (Unit u : enemies)
                 if (unit.canAttack(u))
                     targets.add(u);
-            selectTarget(0);
+
+            if (targets.isEmpty()) {
+                player.deselectUnit();
+                return;
+            } else
+                selectTarget(0);
         }
 
-        if (keyboard.get(Keyboard.ENTER).isPressed()) {
-            System.out.println("Attacking");
+        if (player.isPressed(Keyboard.ENTER)) {
             targets.get(targetIx).takeDamage(unit.getDamage());
             player.deselectUnit();
-        } else if (keyboard.get(Keyboard.LEFT).isPressed()) {
+        } else if (player.isPressed(Keyboard.LEFT)) {
             selectTarget(targetIx - 1);
-        } else if (keyboard.get(Keyboard.RIGHT).isPressed()) {
+        } else if (player.isPressed(Keyboard.RIGHT)) {
             selectTarget(targetIx + 1);
         }
     }
 
     private void selectTarget(int ix) {
-        if (targets.size() == 0)
-            return;
         targetIx = ix = (ix % targets.size() + targets.size()) % targets.size();
         targets.get(ix).centerCamera();
         sprite.setAnchor(targets.get(ix).getPosition().add(0.5f, -0.5f));
