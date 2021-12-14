@@ -58,6 +58,9 @@ abstract public class ICWarsArea extends Area {
                 unitList.add(u);
         return unitList;
     }
+    public ICWarsBehavior.ICWarsCellType getCellType(){
+        return behavior.getCellType();
+    }
 
     @Override
     public int getWidth() {
