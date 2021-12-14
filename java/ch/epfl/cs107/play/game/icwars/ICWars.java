@@ -91,12 +91,12 @@ public class ICWars extends AreaGame {
         players = new ArrayList<ICWarsPlayer>();
 
         DiscreteCoordinates coords1 = new DiscreteCoordinates(4, 4);
-        ICWarsPlayer player1 = new AIPlayer(area, Orientation.UP, coords1, "yellow");
+        ICWarsPlayer player1 = new RealPlayer(area, Orientation.UP, coords1, "yellow");
         player1.enterArea(area, coords1);
         players.add(player1);
 
         DiscreteCoordinates coords2 = new DiscreteCoordinates(3, 3);
-        ICWarsPlayer player2 = new AIPlayer(area, Orientation.UP, coords2, "green");
+        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords2, "green");
         player2.enterArea(area, coords2);
         players.add(player2);
 

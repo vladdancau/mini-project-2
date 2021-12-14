@@ -159,6 +159,8 @@ abstract public class ICWarsPlayer extends ICWarsActor {
     @Override
     public void update(float deltaTime) {
         updateController();
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
+
         switch (getState()) {
             case IDLE:
                 break;
@@ -168,6 +170,17 @@ abstract public class ICWarsPlayer extends ICWarsActor {
                 break;
             case NORMAL:
                 doMovement();
+
+                gui.setUnit(null);
+                List<Unit> unitList = ((ICWarsArea) getOwnerArea()).getUnits();
+                for (Unit u : unitList) {
+                    if (u.getPosition().equals(getPosition())) {
+                        gui.setUnit(u);
+                    }
+                }
+
+                ICWarsBehavior.ICWarsCellType cellType = ((ICWarsArea) getOwnerArea()).getCellType(coords.x, coords.y);
+                gui.setCurrentCell(cellType);
 
                 if(isPressed(Keyboard.ENTER)) {
                     setState(GameState.SELECT_CELL);
@@ -198,7 +211,6 @@ abstract public class ICWarsPlayer extends ICWarsActor {
                     Vector d = (getPosition().sub(selectedUnit.getPosition()));
                     int movableRadius = selectedUnit.movableRadius();
 
-                    DiscreteCoordinates coords = getCurrentMainCellCoordinates();
                     if (selectedUnit.canMoveTo(coords)) {
                         selectedUnit.changePosition(coords);
                         actions = selectedUnit.getActions();
