@@ -36,13 +36,25 @@ Here we'll insert all the required comments for handing in the project.
 * [ ] add introduction to the game (level selector)
 * [ ] contest registration PDF
 
-* [ ] Vlad - design sound system
+* [X] Vlad - design sound system
 * [ ] Vlad - level design (background/behaviour)
 * [ ] 2 levels with default tile graphics (20x20, 30x30)
 * [ ] (optional) more levels with new graphics
-* [ ] Vlad - design user interface
+* [X] Vlad - design user interface
 
 ### Audio System
-* "../adio.wav" = plays when ...
+* "fx/cursor.wav" = sound of the cursor
+* "fx/tank firing.wav" = soud of the tak firig a shot
+* "opening.mp3" = plays with the initial menu
+* "battle-time.mp3" = plays when selecting a level
+* "count-up.mp3" = plays when AI attacks
+* "success.wav" = plays if user wins
+* "war-news.mp3" = great soundtrack if you plan an introductory explanation/tutorial
+* ---BACKGROUND SOUNDTRACKS (ALWAYS ON WHILE PLAYING IN A LEVEL)---
+* "theme-andy.mp3" = soundtrack of the first level
+* "theme-drake.mp3" = soundtrack of the second level
+* "theme-eagle.mp3" = soundtrack of the third level
+* "theme-olaf.mp3" = soundtrack of the fourth level if any
+
 
 Final deadline **23.12.21**
