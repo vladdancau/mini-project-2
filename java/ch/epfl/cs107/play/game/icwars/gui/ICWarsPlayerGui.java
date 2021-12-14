@@ -4,13 +4,17 @@ import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.game.icwars.actor.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.actor.Unit;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.List;
 
 public class ICWarsPlayerGui implements Graphics {
-    private ICWarsPlayer player;
-    public static float FONT_SIZE = 15f;
+    private RealPlayer player;
+    public static float FONT_SIZE = 20f;
+  
     ICWarsActionsPanel actionsPanel;
     ICWarsInfoPanel infoPanel;
 
@@ -26,11 +30,19 @@ public class ICWarsPlayerGui implements Graphics {
             player.drawSelectedUnitRange(canvas);
         if (player.getState() == ICWarsPlayer.GameState.ACTION_SELECTION)
             actionsPanel.draw(canvas);
-        if (player.getState() == ICWarsPlayer.GameState.NORMAL || player.getState() == ICWarsPlayer.GameState.SELECT_CELL)
+        if (player.getState() == ICWarsPlayer.GameState.NORMAL || player.getState() == ICWarsPlayer.GameState.SELECT_CELL){
             infoPanel.draw(canvas);
-    }
+        }
 
     public void setActions(List<Action> actions) {
         actionsPanel.setActions(actions);
+    }
+    public void setUnit(Unit unit){
+        infoPanel.setUnit(unit);
+    }
+    public void setCurrentCell(ICWarsBehavior.ICWarsCellType currentCell){
+        System.out.println("TEST");
+        infoPanel.setCurrentCell(currentCell);
+        infopan
     }
 }
