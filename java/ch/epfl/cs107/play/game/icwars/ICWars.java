@@ -8,6 +8,7 @@ import ch.epfl.cs107.play.game.icwars.actor.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.icwars.Level0;
 import ch.epfl.cs107.play.game.icwars.area.icwars.Level1;
+import ch.epfl.cs107.play.game.icwars.area.icwars.Level2;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class ICWars extends AreaGame {
 
     public final static float CAMERA_SCALE_FACTOR = 13.f;
-    private final String[] areas = {"icwars/Level0", "icwars/Level1"};
+    private final String[] areas = {"icwars/Level0", "icwars/Level1", "icwars/Level2"};
 
     private int areaIndex;
     private List<ICWarsPlayer> players;
@@ -30,6 +31,7 @@ public class ICWars extends AreaGame {
     private void createAreas(){
         addArea(new Level0());
         addArea(new Level1());
+        addArea(new Level2());
     }
 
     public boolean begin(Window window, FileSystem fileSystem){
