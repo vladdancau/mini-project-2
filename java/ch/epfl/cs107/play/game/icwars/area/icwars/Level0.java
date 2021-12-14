@@ -3,7 +3,12 @@ package ch.epfl.cs107.play.game.icwars.area.icwars;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
+import ch.epfl.cs107.play.io.DefaultFileSystem;
+import ch.epfl.cs107.play.io.ResourceFileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.window.swing.SwingSound;
+
+import java.io.InputStream;
 
 public class Level0 extends ICWarsArea {
     @Override
@@ -13,6 +18,13 @@ public class Level0 extends ICWarsArea {
 
     @Override
     protected void createArea() {
+        try {
+            InputStream input = (new ResourceFileSystem(DefaultFileSystem.INSTANCE)).read("audio/theme-andy.wav");
+            SwingSound bgSound = new SwingSound(input);
+            bgSound.openedClip(0).start();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         registerActor(new Background(this));
         addUnit(new Unit(this, "ROCKET", "yellow", new DiscreteCoordinates(8, 3)));
         addUnit(new Unit(this, "SOLDIER", "yellow", new DiscreteCoordinates(9, 4)));
