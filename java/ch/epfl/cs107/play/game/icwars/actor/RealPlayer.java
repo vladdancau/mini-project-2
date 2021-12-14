@@ -24,7 +24,11 @@ public class RealPlayer extends ICWarsPlayer {
 
     public boolean isPressed(int key) {
         Keyboard keyboard = getOwnerArea().getKeyboard();
-        return keyboard.get(key).isPressed();
+
+        if (getState() != GameState.ACTION && key != Keyboard.ENTER)
+            return keyboard.get(key).isDown();
+        else
+            return keyboard.get(key).isPressed();
     }
 
     public void updateController() { }

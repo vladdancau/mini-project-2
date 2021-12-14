@@ -20,7 +20,7 @@ public class ICWarsActor extends MovableAreaEntity {
     public String faction;
 
     /// Animation duration in frame number
-    public final static int MOVE_DURATION = 4;
+    public final static int MOVE_DURATION = 3;
     /**
      * Demo actor
      *

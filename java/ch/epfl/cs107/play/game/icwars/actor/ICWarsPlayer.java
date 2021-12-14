@@ -170,7 +170,6 @@ abstract public class ICWarsPlayer extends ICWarsActor {
                 break;
             case NORMAL:
                 doMovement();
-
                 gui.setUnit(null);
                 List<Unit> unitList = ((ICWarsArea) getOwnerArea()).getUnits();
                 for (Unit u : unitList) {

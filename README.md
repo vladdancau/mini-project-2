@@ -18,16 +18,31 @@ Here we'll insert all the required comments for handing in the project.
 * [X] `ICWarsPlayerGUI`
 * [X] more accurate range init
 * [X] select friendly units
-* [ ] select own units only
+* [X] select own units only
 * [X] center to current player
 * [X] move friendly units
-* [ ] test if unit can be moved to position
-* [ ] unit action
-* [ ] enemy units + AI
-* [ ] info box
+* [X] test if unit can be moved to position
+* [X] unit action
+* [X] enemy units + AI
+* [X] info box
+* [ ] fix health (die at zero + defense points)
+* [X] fix movement for real player (keep pressing)
+* [ ] add building
+* [ ] add more units (planes, bombers, etc)
+* [ ] add more actions (repair, teleport, etc)
+* [ ] Tiberiu - fix Level Editor
+* [ ] add more levels
+* [ ] add sounds effects depending on the current level
+* [ ] add introduction to the game (level selector)
+* [ ] contest registration PDF
 
-### To fix
+* [ ] Vlad - design sound system
+* [ ] Vlad - level design (background/behaviour)
+* [ ] 2 levels with default tile graphics (20x20, 30x30)
+* [ ] (optional) more levels with new graphics
+* [ ] Vlad - design user interface
 
-* [ ] Range not displaying correctly for tiles out of initial view
+### Audio System
+* "../adio.wav" = plays when ...
 
 Final deadline **23.12.21**

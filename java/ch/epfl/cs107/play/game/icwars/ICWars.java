@@ -92,7 +92,7 @@ public class ICWars extends AreaGame {
         players = new ArrayList<ICWarsPlayer>();
 
         DiscreteCoordinates coords1 = new DiscreteCoordinates(4, 4);
-        ICWarsPlayer player1 = new RealPlayer(area, Orientation.UP, coords1, "yellow");
+        ICWarsPlayer player1 = new AIPlayer(area, Orientation.UP, coords1, "yellow");
         player1.enterArea(area, coords1);
         players.add(player1);
 
@@ -108,7 +108,6 @@ public class ICWars extends AreaGame {
 
         player2.setState(ICWarsPlayer.GameState.WAITING_TURN);
     }
-
 
     @Override
     public String getTitle() {

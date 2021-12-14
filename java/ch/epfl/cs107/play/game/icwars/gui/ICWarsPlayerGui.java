@@ -42,7 +42,6 @@ public class ICWarsPlayerGui implements Graphics {
         infoPanel.setUnit(unit);
     }
     public void setCurrentCell(ICWarsBehavior.ICWarsCellType currentCell){
-        System.out.println("TEST");
         infoPanel.setCurrentCell(currentCell);
     }
 }
