@@ -59,6 +59,10 @@ abstract public class ICWarsArea extends Area {
         return unitList;
     }
 
+    public ICWarsBehavior.ICWarsCellType getCellType(int x, int y){
+        return behavior.getCellType(x, y);
+    }
+
     @Override
     public int getWidth() {
         Image behaviorMap = window.getImage(ResourcePath.getBehavior(getTitle()), null, false);

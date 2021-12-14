@@ -86,6 +86,7 @@ public class ICWarsActor extends MovableAreaEntity {
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
         return Collections.singletonList(getCurrentMainCellCoordinates());
+
     }
 
     @Override

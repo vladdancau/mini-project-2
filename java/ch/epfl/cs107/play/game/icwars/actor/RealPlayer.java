@@ -1,18 +1,17 @@
 package ch.epfl.cs107.play.game.icwars.actor;
 
-import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
+import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior.ICWarsCellType;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGui;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
-import ch.epfl.cs107.play.window.Window;
 
 import java.util.List;
 
@@ -41,16 +40,32 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void update(float deltaTime) {
         Keyboard keyboard = getOwnerArea().getKeyboard();
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
 
         switch (getState()) {
             case IDLE:
                 break;
+
             case WAITING_TURN:
+            System.out.println("WAITING_TURN TRIGGERED");
                 setState(GameState.NORMAL);
                 centerCamera();
                 break;
             case NORMAL:
+                System.out.println("NORMAL TRIGGERED");
                 movePlayer();
+                //ICWarsCellType, input 1
+
+                gui.setUnit(null);
+                List<Unit> unitList = ((ICWarsArea) getOwnerArea()).getUnits();
+                for (Unit u : unitList) {
+                    if (u.getPosition().equals(getPosition())) {
+                        gui.setUnit(u);
+                    }
+                }
+
+                ICWarsCellType cellType = ((ICWarsArea) getOwnerArea()).getCellType(coords.x, coords.y);
+                gui.setCurrentCell(cellType);
 
                 if(keyboard.get(Keyboard.ENTER).isPressed()) {
                     setState(GameState.SELECT_CELL);
@@ -61,9 +76,9 @@ public class RealPlayer extends ICWarsPlayer {
                 else if(keyboard.get(Keyboard.U).isPressed()) {
                     setState(GameState.SELECT_CELL);
                 }
-
                 break;
             case SELECT_CELL:
+                System.out.println("SELECT_CELL TRIGGERED");
                 setState(GameState.NORMAL);
                 List<Unit> units = ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction);
                 for (Unit u : units) {
@@ -72,16 +87,15 @@ public class RealPlayer extends ICWarsPlayer {
                         u.initRange();
                     }
                 }
-
                 break;
             case MOVE_UNIT:
+                System.out.println("MOVE_UNIT TRIGGERED");
                 movePlayer();
 
                 if(keyboard.get(Keyboard.ENTER).isPressed()){
                     Vector d = (getPosition().sub(selectedUnit.getPosition()));
                     int movableRadius = Unit.UnitType.valueOf(selectedUnit.getName()).movableRadius;
 
-                    DiscreteCoordinates coords = getCurrentMainCellCoordinates();
                     if (selectedUnit.canMoveTo(coords)) {
                         selectedUnit.changePosition(coords);
                         //selectedUnit.setWaitingStatus(true);
@@ -92,6 +106,7 @@ public class RealPlayer extends ICWarsPlayer {
                 }
                 break;
             case ACTION_SELECTION:
+                System.out.println("ACTION_SELECTION TRIGGERED");
                 for (Unit.Action a : actions) {
                     if (keyboard.get(a.key).isPressed()) {
                         selectedAction = a;
