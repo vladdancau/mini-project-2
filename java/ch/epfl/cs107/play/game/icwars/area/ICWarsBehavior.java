@@ -11,11 +11,11 @@ import ch.epfl.cs107.play.window.Window;
 
 public class ICWarsBehavior extends AreaBehavior {
 
-    public ICWarsCellType getCellType(){
-        return null;
+    public ICWarsCellType getCellType(int x, int y){
+        return ((ICWarsCell) this.getCell(x, y)).type;
     }
 
-    public enum ICWarsCellType{
+    public enum ICWarsCellType {
         //https://stackoverflow.com/questions/25761438/understanding-bufferedimage-getrgb-output-values
         NONE(0,0), // Should never be used except // in the toType method
         ROAD(-16777216, 0), // the second value is the number // of defense stars
@@ -43,9 +43,7 @@ public class ICWarsBehavior extends AreaBehavior {
             return null;
         }
 
-        public String typeToString() {
-            return this.toString();
-        }
+        public String typeToString() { return this.toString(); }
 
         public int getDefenseStar() {
             return defenseStars;

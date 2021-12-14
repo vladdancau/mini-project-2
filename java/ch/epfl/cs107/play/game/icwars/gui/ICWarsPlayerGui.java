@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ICWarsPlayerGui implements Graphics {
     private RealPlayer player;
-    public static float FONT_SIZE = 15f;
+    public static float FONT_SIZE = 20f;
     ICWarsActionsPanel actionsPanel;
     ICWarsInfoPanel infoPanel;
 
@@ -46,5 +46,6 @@ public class ICWarsPlayerGui implements Graphics {
     public void setCurrentCell(ICWarsBehavior.ICWarsCellType currentCell){
         System.out.println("TEST");
         infoPanel.setCurrentCell(currentCell);
+        infopan
     }
 }

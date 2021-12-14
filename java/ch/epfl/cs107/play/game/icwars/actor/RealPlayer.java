@@ -40,6 +40,7 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void update(float deltaTime) {
         Keyboard keyboard = getOwnerArea().getKeyboard();
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
 
         switch (getState()) {
             case IDLE:
@@ -51,18 +52,21 @@ public class RealPlayer extends ICWarsPlayer {
                 centerCamera();
                 break;
             case NORMAL:
-
                 System.out.println("NORMAL TRIGGERED");
                 movePlayer();
                 //ICWarsCellType, input 1
 
+                gui.setUnit(null);
                 List<Unit> unitList = ((ICWarsArea) getOwnerArea()).getUnits();
-
-                for(Unit u : unitList){
-                    if(u.getPosition().equals(getPosition())){
+                for (Unit u : unitList) {
+                    if (u.getPosition().equals(getPosition())) {
                         gui.setUnit(u);
                     }
                 }
+
+                ICWarsCellType cellType = ((ICWarsArea) getOwnerArea()).getCellType(coords.x, coords.y);
+                gui.setCurrentCell(cellType);
+
                 if(keyboard.get(Keyboard.ENTER).isPressed()) {
                     setState(GameState.SELECT_CELL);
                 }
@@ -92,7 +96,6 @@ public class RealPlayer extends ICWarsPlayer {
                     Vector d = (getPosition().sub(selectedUnit.getPosition()));
                     int movableRadius = Unit.UnitType.valueOf(selectedUnit.getName()).movableRadius;
 
-                    DiscreteCoordinates coords = getCurrentMainCellCoordinates();
                     if (selectedUnit.canMoveTo(coords)) {
                         selectedUnit.changePosition(coords);
                         //selectedUnit.setWaitingStatus(true);
