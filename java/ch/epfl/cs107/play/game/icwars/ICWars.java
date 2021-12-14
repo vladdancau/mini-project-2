@@ -12,6 +12,7 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
+import ch.epfl.cs107.play.window.Sound;
 import ch.epfl.cs107.play.window.Window;
 
 import java.util.ArrayList;
@@ -107,6 +108,7 @@ public class ICWars extends AreaGame {
 
         player2.setState(ICWarsPlayer.GameState.WAITING_TURN);
     }
+
 
     @Override
     public String getTitle() {
