@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.icwars.area;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.icwars.actor.ICWarsPlayer;
 import ch.epfl.cs107.play.game.icwars.actor.RealPlayer;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsInfoPanel;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGui;
@@ -92,9 +93,9 @@ public class ICWarsBehavior extends AreaBehavior {
 
         @Override
         protected boolean canEnter(Interactable entity) {
-            if (entity instanceof RealPlayer){
+            if (entity instanceof ICWarsPlayer)
                 return true;
-            }
+          
             if(this.type == ICWarsCellType.RIVER || this.type == ICWarsCellType.CITY)
                 return false;
 

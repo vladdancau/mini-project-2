@@ -46,7 +46,7 @@ abstract public class AreaGame implements Game, PauseMenu.Pausable {
     	
     	if(newArea == null) {
             System.out.println("New Area not found, keep previous one");
-    	}else {
+    	} else {
     		// Stop previous area if it exist
             if(currentArea != null){
                 currentArea.suspend();
@@ -113,7 +113,6 @@ abstract public class AreaGame implements Game, PauseMenu.Pausable {
 
     @Override
     public void update(float deltaTime) {
-
         if(paused && menu != null) {
             menu.update(deltaTime);
         }

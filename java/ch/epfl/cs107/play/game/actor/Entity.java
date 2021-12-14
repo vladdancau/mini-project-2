@@ -61,4 +61,12 @@ public abstract class Entity implements Actor {
     public Vector getVelocity() {
         return Vector.ZERO;
     }
+
+    public float getDistance(float x, float y) {
+        return Math.abs(getPosition().x - x) + Math.abs(getPosition().y - y);
+    }
+
+    public float getDistance(Entity e) {
+        return getDistance(e.getPosition().x, e.getPosition().y);
+    }
 }

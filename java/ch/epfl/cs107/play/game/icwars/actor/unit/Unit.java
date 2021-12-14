@@ -1,16 +1,16 @@
-package ch.epfl.cs107.play.game.icwars.actor;
-import ch.epfl.cs107.play.game.actor.Graphics;
+package ch.epfl.cs107.play.game.icwars.actor.unit;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
-import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.icwars.actor.ICWarsActor;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.AttackAction;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.WaitAction;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Canvas;
-import ch.epfl.cs107.play.window.Keyboard;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -26,15 +26,13 @@ public class Unit extends ICWarsActor {
         super(area, Orientation.DOWN, coord, getUnitSprite(type, faction), faction);
         this.type = type;
         this.waitingStatus = false;
+        this.hp = maxHp();
         initRange();
     }
 
     public void setWaitingStatus(boolean status) {
         waitingStatus = status;
-        if (waitingStatus)
-            setOpacity(0.5f);
-        else
-            setOpacity(1);
+        setOpacity(waitingStatus ? 0.5f : 1);
     }
 
     public boolean getWaitingStatus() {
@@ -42,13 +40,12 @@ public class Unit extends ICWarsActor {
     }
 
     static private String getUnitSprite(String type, String faction) {
-        final String capitalizedType = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
-        final String spriteName = "icwars/" + (faction == "ally" ? "friendly" : "enemy") + capitalizedType;
+        final String spriteName = "icwars/" + faction + "/" + type.toLowerCase();
         return spriteName;
     }
 
     public void initRange() {
-        int unitRange = UnitType.valueOf(type).movableRadius * 2;
+        int unitRange = movableRadius() * 2;
         int fromX = getCurrentMainCellCoordinates().x;
         int fromY = getCurrentMainCellCoordinates().y;
 
@@ -68,21 +65,41 @@ public class Unit extends ICWarsActor {
             }
     }
 
-    public List<Action> getActions() {
-        List<Action> actions = new ArrayList<>();
-        actions.add(new WaitAction(this, getOwnerArea()));
-        return actions;
-    }
-
     public String getName(){
         return type;
     }
-
     public int getHp(){ return hp; }
+    public int getDamage() { return UnitType.valueOf(this.type).damagePoints; }
+    public int movableRadius() { return UnitType.valueOf(type).movableRadius; }
+    public int maxHp() { return UnitType.valueOf(type).maxHp; }
 
-    public int getDamage(){
-        return UnitType.valueOf(this.type).damagePoints;
+    public void initAttackRange() {
+        int unitRange = movableRadius() * 2;
+        int fromX = getCurrentMainCellCoordinates().x;
+        int fromY = getCurrentMainCellCoordinates().y;
+
+        range = new ICWarsRange();
+
+        for (int x = -unitRange; x <= unitRange; x++)
+            for (int y = -unitRange; y <= unitRange; y++) {
+                int rx = x + fromX, ry = y + fromY;
+                if (canAttack(rx, ry)) {
+                    boolean hasLeftEdge = canAttack(rx - 1, ry);
+                    boolean hasUpEdge = canAttack(rx, ry + 1);
+                    boolean hasRightEdge = canAttack(rx + 1, ry);
+                    boolean hasDownEdge = canAttack(rx, ry - 1);
+                    range.addNode(new DiscreteCoordinates(rx, ry), hasLeftEdge, hasUpEdge, hasRightEdge, hasDownEdge);
+                }
+            }
     }
+
+    public List<Action> getActions() {
+        List<Action> actions = new ArrayList<>();
+        actions.add(new WaitAction(this, getOwnerArea()));
+        actions.add(new AttackAction(this, getOwnerArea()));
+        return actions;
+    }
+
 
     public enum UnitType {
         SOLDIER(2,2,5),
@@ -100,46 +117,53 @@ public class Unit extends ICWarsActor {
         }
     }
 
-    public void damage(){hp--;}
+    public void takeDamage(int damage) {
+        hp = hp - damage;
+        if (hp < 0)
+            this.destroy();
+    }
 
-    public void repair(){hp+=REPAIR_HP;}
+    public void destroy() {
+        ((ICWarsArea) getOwnerArea()).removeUnit(this);
+    }
 
     public boolean canMoveTo(int x, int y) {
         return canMoveTo(new DiscreteCoordinates(x, y));
     }
 
     public boolean canMoveTo(DiscreteCoordinates coords) {
-        if(coords.x >= getOwnerArea().getHeight() || coords.y >= getOwnerArea().getWidth())
-            return false;
-        if (coords.x < 0 || coords.y < 0)
+        if(coords.x >= getOwnerArea().getHeight() || coords.y >= getOwnerArea().getWidth() || coords.x < 0 || coords.y < 0)
             return false;
 
         // test if tile is within movable radius
-        int unitRange = UnitType.valueOf(type).movableRadius;
         int unitX = getCurrentMainCellCoordinates().x;
         int unitY = getCurrentMainCellCoordinates().y;
-        double diffX = coords.x - unitX ;
-        double diffY = coords.y - unitY;
-        if (Math.abs(diffX) + Math.abs(diffY) > unitRange)
+        if (Math.abs(coords.x - unitX) + Math.abs(coords.y - unitY) > movableRadius())
             return false;
 
         // test if tile is walkable (e.g. not water)
-        // implement&use canEnter() method in ICWarsCell
         ArrayList<DiscreteCoordinates> arrayCoords = new ArrayList<DiscreteCoordinates>();
         arrayCoords.add(coords);
-        boolean isWalkable = !getOwnerArea().canEnterAreaCells(this, arrayCoords);
-        if(isWalkable) {
+        if (!getOwnerArea().canEnterAreaCells(this, arrayCoords))
             return false;
-        }
 
         // test if unit not already there
-        List<Unit> units = ((ICWarsArea) getOwnerArea()).getUnits();
-        // coords
-        for(int i = 0; i < units.size(); i++)
-            if(units.get(i) != this && units.get(i).getPosition().equals(coords.toVector()))
+        for (Unit u : ((ICWarsArea) getOwnerArea()).getUnits())
+            if(u != this && u.getPosition().equals(coords.toVector()))
                 return false;
 
         return true;
+    }
+
+    public boolean canAttack(int x, int y) {
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
+        int damageRadius = movableRadius();
+        return Math.abs(coords.x - x) + Math.abs(coords.y - y) <= damageRadius;
+    }
+
+    public boolean canAttack(Unit other) {
+        DiscreteCoordinates coords = other.getCurrentMainCellCoordinates();
+        return canAttack(coords.x, coords.y);
     }
     
     public void setOpacity(float opacity) {
@@ -154,66 +178,14 @@ public class Unit extends ICWarsActor {
         range.draw(canvas);
         Queue<Orientation> path = range.shortestPath(getCurrentMainCellCoordinates(), destination);
         //Draw path only if it exists (destination inside the range)
-        if (path != null){
+        if (path != null)
             new Path(getCurrentMainCellCoordinates().toVector(), path).draw(canvas);
-        }
     }
 
     @Override
     public boolean changePosition(DiscreteCoordinates newPosition) {
-        super.changePosition(newPosition);
+        boolean success = super.changePosition(newPosition);
         initRange();
-        return true;
-    }
-
-    public abstract class Action implements Graphics {
-        protected Unit unit;
-        protected Area area;
-        private boolean ongoing;
-
-        public String name;
-        public int key;
-
-
-        public Action(Unit unit, Area area) {
-            this.unit = unit;
-            this.area = area;
-            this.ongoing = true;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getKey() {
-            return key;
-        }
-
-        public abstract void draw(Canvas canvas);
-        public abstract void doAction(float dt, ICWarsPlayer player, Keyboard keyboard);
-
-        protected void endAction() {
-            ongoing = false;
-        }
-
-        private boolean isOngoing() {
-            return ongoing;
-        }
-    }
-
-    private class WaitAction extends Action {
-        public WaitAction(Unit unit, Area area) {
-            super(unit, area);
-            name = "(W)ait";
-            key = Keyboard.W;
-        }
-
-        public void draw(Canvas canvas) {}
-        public void doAction(float dt, ICWarsPlayer player, Keyboard keyboard) {
-            unit.setWaitingStatus(true);
-            player.selectUnit(null);
-            player.setState(ICWarsPlayer.GameState.NORMAL);
-            endAction();
-        }
+        return success;
     }
 }
