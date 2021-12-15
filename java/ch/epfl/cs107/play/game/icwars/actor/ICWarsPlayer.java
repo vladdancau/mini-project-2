@@ -8,11 +8,15 @@ import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.gui.ICWarsPlayerGui;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsBehavior;
+import ch.epfl.cs107.play.io.DefaultFileSystem;
+import ch.epfl.cs107.play.io.ResourceFileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
+import ch.epfl.cs107.play.window.swing.SwingSound;
 
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -190,7 +194,6 @@ abstract public class ICWarsPlayer extends ICWarsActor {
                 else if(isPressed(Keyboard.U)) {
                     setState(GameState.SELECT_CELL);
                 }
-
                 break;
             case SELECT_CELL:
                 setState(GameState.NORMAL);
@@ -235,6 +238,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
     }
 
     public void doMovement() {
+
         moveIfPressed(Orientation.LEFT, Keyboard.LEFT);
         moveIfPressed(Orientation.UP, Keyboard.UP);
         moveIfPressed(Orientation.RIGHT, Keyboard.RIGHT);
