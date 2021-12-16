@@ -71,7 +71,8 @@ public class ICWars extends AreaGame {
         }
 
         Keyboard keyboard = getWindow().getKeyboard();
-        if(keyboard.get(Keyboard.N).isPressed()) {
+        if(keyboard.get(Keyboard.N).isReleased()) {
+            System.out.println("Advancing to next area");
             areaIndex = (areaIndex + 1);
             if(areaIndex >= areas.length){
                 end();
@@ -90,25 +91,32 @@ public class ICWars extends AreaGame {
     }
 
     private void initArea(String areaKey) {
+        if (players != null)
+            for (ICWarsPlayer player : players)
+                player.leaveArea();
+
         ICWarsArea area = (ICWarsArea) setCurrentArea(areaKey, true);
+        System.out.println(area.getHeight() + " " + area.getWidth());
         players = new ArrayList<ICWarsPlayer>();
 
-        DiscreteCoordinates coords1 = new DiscreteCoordinates(4, 4);
-        ICWarsPlayer player1 = new AIPlayer(area, Orientation.UP, coords1, "yellow");
-        player1.enterArea(area, coords1);
-        players.add(player1);
-
-        DiscreteCoordinates coords2 = new DiscreteCoordinates(3, 3);
-        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords2, "green");
-        player2.enterArea(area, coords2);
+        DiscreteCoordinates coords = new DiscreteCoordinates(3, 3);
+        ICWarsPlayer player2 = new RealPlayer(area, Orientation.UP, coords, "blue");
         players.add(player2);
 
-        player1.setNextPlayer(player2);
-        player2.setNextPlayer(player1);
+        ICWarsPlayer player1 = new AIPlayer(area, Orientation.UP, coords, "red");
+        players.add(player1);
 
-        update(1);
+        if (areaKey == "icwars/Level1") {
+            ICWarsPlayer player3 = new AIPlayer(area, Orientation.UP, coords, "yellow");
+            players.add(player3);
+        }
 
-        player2.setState(ICWarsPlayer.GameState.WAITING_TURN);
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).enterArea(area, coords);
+            players.get(i).setNextPlayer(players.get((i + 1) % players.size()));
+        }
+
+        players.get(0).setState(ICWarsPlayer.GameState.WAITING_TURN);
     }
 
     @Override

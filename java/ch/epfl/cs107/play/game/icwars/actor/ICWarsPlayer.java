@@ -95,6 +95,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
 
     public void setState(GameState s) {
         state = s;
+        System.out.println(getState());
     }
 
     public GameState getState() {
@@ -193,10 +194,11 @@ abstract public class ICWarsPlayer extends ICWarsActor {
 
                 break;
             case SELECT_CELL:
+                //System.out.println("Selecting cell");
                 setState(GameState.NORMAL);
                 List<Unit> units = ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction);
                 for (Unit u : units) {
-                    if (u.getPosition().equals(this.getPosition())) {
+                    if (u.getPosition().equals(this.getPosition()) && u.movableRadius() > 0) {
                         this.selectUnit(u);
                         u.initRange();
                     }

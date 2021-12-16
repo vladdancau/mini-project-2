@@ -54,6 +54,7 @@ public class AttackAction extends Action {
         if (player.isPressed(Keyboard.ENTER)) {
             targets.get(targetIx).takeDamage(unit.getDamage());
             player.deselectUnit();
+            player.centerCamera();
         } else if (player.isPressed(Keyboard.LEFT)) {
             selectTarget(targetIx - 1);
         } else if (player.isPressed(Keyboard.RIGHT)) {

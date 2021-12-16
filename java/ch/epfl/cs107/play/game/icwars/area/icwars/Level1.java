@@ -14,12 +14,20 @@ public class Level1 extends ICWarsArea {
     @Override
     protected void createArea() {
         registerActor(new Background(this));
-        addUnit(new Unit(this, "ROCKET", "yellow", new DiscreteCoordinates(8, 3)));
-        addUnit(new Unit(this, "SOLDIER", "yellow", new DiscreteCoordinates(9, 4)));
-        addUnit(new Unit(this, "TANK", "yellow", new DiscreteCoordinates(9, 3)));
-        addUnit(new Unit(this, "TANK", "green", new DiscreteCoordinates(0, 9)));
-        addUnit(new Unit(this, "ROCKET", "green", new DiscreteCoordinates(0, 8)));
-        addUnit(new Unit(this, "SOLDIER", "green", new DiscreteCoordinates(0, 7)));
+        addUnit(new Unit(this, "ROCKET", "red", new DiscreteCoordinates(13, 5)));
+        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(14, 5)));
+        addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(15, 5)));
+        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(15, 4)));
+        addUnit(new Unit(this, "CITY", "red", new DiscreteCoordinates(15, 6)));
+
+        addUnit(new Unit(this, "TANK", "blue", new DiscreteCoordinates(5, 3)));
+        addUnit(new Unit(this, "ROCKET", "blue", new DiscreteCoordinates(7, 3)));
+        addUnit(new Unit(this, "SOLDIER", "blue", new DiscreteCoordinates(6, 3)));
+        addUnit(new Unit(this, "SOLDIER", "blue", new DiscreteCoordinates(5, 4)));
+        addUnit(new Unit(this, "CITY", "blue", new DiscreteCoordinates(5, 2)));
+
+        addUnit(new Unit(this, "ROCKET", "yellow", new DiscreteCoordinates(9, 9)));
+        addUnit(new Unit(this, "ROCKET", "yellow", new DiscreteCoordinates(9, 8)));
     }
 }
 

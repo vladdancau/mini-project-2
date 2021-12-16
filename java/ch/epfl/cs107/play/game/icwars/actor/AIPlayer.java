@@ -46,7 +46,7 @@ public class AIPlayer extends ICWarsPlayer{
             case NORMAL:
                 Unit closestUnit = null;
                 for (Unit u : ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction))
-                    if (!u.getWaitingStatus() && (closestUnit == null || getDistance(u) < getDistance(closestUnit)))
+                    if (!u.getWaitingStatus() && u.movableRadius() > 0 && (closestUnit == null || getDistance(u) < getDistance(closestUnit)))
                         closestUnit = u;
                 if (closestUnit == null)
                     key = Keyboard.TAB;
@@ -96,6 +96,7 @@ public class AIPlayer extends ICWarsPlayer{
     private void setTargetPosition(Vector tPos) {
         Integer key = Keyboard.ENTER;
         Vector pos = getPosition();
+        //System.out.println(pos.x + " " + pos.y + " " + tPos.);
         if (tPos.x > pos.x)
             key = Keyboard.RIGHT;
         else if (tPos.x < pos.x)
@@ -105,6 +106,6 @@ public class AIPlayer extends ICWarsPlayer{
         else if (tPos.y < pos.y)
             key = Keyboard.DOWN;
         controller.put(key, true);
-        //System.out.println(isPressed(Keyboard.LEFT));
+        System.out.println(key);
     }
 }

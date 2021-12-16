@@ -96,7 +96,7 @@ public class ICWarsBehavior extends AreaBehavior {
             if (entity instanceof ICWarsPlayer)
                 return true;
           
-            if(this.type == ICWarsCellType.RIVER || this.type == ICWarsCellType.CITY)
+            if(this.type == ICWarsCellType.RIVER)
                 return false;
 
             return true;

@@ -8,12 +8,15 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
 
+import javax.sound.sampled.Clip;
 import java.util.ArrayList;
 import java.util.List;
 
 abstract public class ICWarsArea extends Area {
     private Window window;
     private ICWarsBehavior behavior;
+    public Clip bgTrack;
+
     /**
      * Create the area by adding all its actors
      * called by the begin method, when the area starts to play

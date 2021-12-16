@@ -3,9 +3,7 @@ import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Path;
 import ch.epfl.cs107.play.game.icwars.actor.ICWarsActor;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.AttackAction;
-import ch.epfl.cs107.play.game.icwars.actor.unit.action.WaitAction;
+import ch.epfl.cs107.play.game.icwars.actor.unit.action.*;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -97,6 +95,8 @@ public class Unit extends ICWarsActor {
         List<Action> actions = new ArrayList<>();
         actions.add(new WaitAction(this, getOwnerArea()));
         actions.add(new AttackAction(this, getOwnerArea()));
+        actions.add(new RepairAction(this, getOwnerArea()));
+        actions.add(new TeleportAction(this, getOwnerArea()));
         return actions;
     }
 
@@ -104,7 +104,8 @@ public class Unit extends ICWarsActor {
     public enum UnitType {
         SOLDIER(2,2,5),
         ROCKET(3,3,6),
-        TANK(4,7,10);
+        TANK(4,7,10),
+        CITY(0,0,30);
 
         final int damagePoints;
         final int movableRadius;
@@ -118,9 +119,26 @@ public class Unit extends ICWarsActor {
     }
 
     public void takeDamage(int damage) {
-        hp = hp - damage;
-        if (hp < 0)
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
+        int defense = ((ICWarsArea) getOwnerArea()).getCellType(coords.x, coords.y).getDefenseStar();
+        hp = Math.min(hp, hp - damage + defense);
+        if (hp <= 0)
             this.destroy();
+    }
+
+    public void repair() { hp = Math.min(maxHp(), hp + REPAIR_HP); }
+
+    public void teleport() {
+        List<DiscreteCoordinates> possibleLocations = new ArrayList<>();
+        for (int x = 0; x < getOwnerArea().getWidth(); x++)
+            for (int y = 0; y < getOwnerArea().getHeight(); y++)
+                if (canMoveTo(x, y))
+                    possibleLocations.add(new DiscreteCoordinates(x, y));
+        if (possibleLocations.size() == 0)
+            return;
+        DiscreteCoordinates coords = getCurrentMainCellCoordinates();
+        // pseudo-random
+        changePosition(possibleLocations.get((coords.x * 1223 + coords.y) % possibleLocations.size()));
     }
 
     public void destroy() {
@@ -132,7 +150,7 @@ public class Unit extends ICWarsActor {
     }
 
     public boolean canMoveTo(DiscreteCoordinates coords) {
-        if(coords.x >= getOwnerArea().getHeight() || coords.y >= getOwnerArea().getWidth() || coords.x < 0 || coords.y < 0)
+        if(coords.y >= getOwnerArea().getHeight() || coords.x >= getOwnerArea().getWidth() || coords.x < 0 || coords.y < 0)
             return false;
 
         // test if tile is within movable radius
