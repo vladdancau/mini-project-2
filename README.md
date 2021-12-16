@@ -1,6 +1,24 @@
 # CS-107 Mini-Projet 2
+Tiberiu Musat and Vlad Dancau
 
 Here we'll insert all the required comments for handing in the project.
+
+### Basic usage of the game
+
+*Launching the game is simply done by executing the "play.java" file
+*Then, press 1,2 or 3 respectively to select one of the three levels
+*In order to move your pointer, just use the arrow keys, then press ENTER
+*when you are ready to select your first unit
+*then select the cell where you want to move it, you will then have the choice
+*between waiting hter by pressing the "W" key, to attack another unit in your range
+*by pressing the "A" key, if the conditions are met, an arrow shows allowing you
+*to use the LEFT and RIGHT arrow keys to select the unit to atac,
+*action performed by pressing ENTER
+*you can also press "H" in order to receive at each turn 5 HP of supplemental life points
+*finally, the "T" key allows you to teleport at a randomly chose location of the map.
+*At any time during the game, you can press the "R" key in order to reset it,
+*or the "N" key in order to go to the next level.
+
 
 ### Links
 
@@ -9,7 +27,7 @@ Here we'll insert all the required comments for handing in the project.
 * [ICWars PDF](https://proginsc.epfl.ch/wwwhiver/mini-projet2/icwars.pdf)
 * [JavaDoc](https://proginsc.epfl.ch/wwwhiver/mini-projet2/JavaDoc/index.html)
 
-### To do
+### Timeline of the project
 
 * [X] gitignore `.DS_Store` files
 * [X] camera stop at area edge
@@ -30,17 +48,16 @@ Here we'll insert all the required comments for handing in the project.
 * [ ] add building
 * [ ] add more units (planes, bombers, etc)
 * [ ] add more actions (repair, teleport, etc)
-* [ ] Tiberiu - fix Level Editor
+* [X] fix Level Editor
 * [ ] add more levels
 * [ ] add sounds effects depending on the current level
 * [ ] add introduction to the game (level selector)
-* [ ] contest registration PDF
-
-* [X] Vlad - design sound system
-* [ ] Vlad - level design (background/behaviour)
-* [ ] 2 levels with default tile graphics (20x20, 30x30)
-* [ ] (optional) more levels with new graphics
-* [X] Vlad - design user interface
+* [X] contest registration PDF
+* [X] design sound system
+* [X] level design (background/behaviour)
+* [X] 2 levels with default tile graphics (20x20, 30x30)
+* [X] more levels with new graphics
+* [X] design user interface
 
 ### Audio System
 * "fx/cursor.wav" = sound of the cursor
