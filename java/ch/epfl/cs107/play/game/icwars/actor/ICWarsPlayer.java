@@ -39,12 +39,12 @@ abstract public class ICWarsPlayer extends ICWarsActor {
         if (u.getWaitingStatus())
             return;
 
-        ICWars.playClip(cursorSound, 0);
+        ICWars.playClip(cursorSound, -20f);
         selectedUnit = u;
         setState(GameState.MOVE_UNIT);
     }
     public void deselectUnit() {
-        ICWars.playClip(cursorSound, 0);
+        ICWars.playClip(cursorSound, -20f);
         selectedUnit.setWaitingStatus(true);
         selectedUnit = null;
         selectedAction = null;
@@ -157,7 +157,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
     private void moveIfPressed(Orientation orientation, int key){
         if(isPressed(key)) {
             if (!isDisplacementOccurs()) {
-                ICWars.playClip(cursorSound, 0);
+                ICWars.playClip(cursorSound, -20f);
                 orientate(orientation);
                 move(MOVE_DURATION);
             }
@@ -220,7 +220,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
                     int movableRadius = selectedUnit.movableRadius();
 
                     if (selectedUnit.canMoveTo(coords)) {
-                        ICWars.playClip(cursorSound, 0);
+                        ICWars.playClip(cursorSound, -20f);
                         selectedUnit.changePosition(coords);
                         actions = selectedUnit.getActions();
                         gui.setActions(actions);
@@ -231,7 +231,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
             case ACTION_SELECTION:
                 for (Action a : actions) {
                     if (isPressed(a.key)) {
-                        ICWars.playClip(cursorSound, 0);
+                        ICWars.playClip(cursorSound, -20f);
                         selectedAction = a;
                         setState(GameState.ACTION);
                     }
