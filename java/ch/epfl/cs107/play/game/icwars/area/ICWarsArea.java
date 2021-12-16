@@ -5,6 +5,7 @@ import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.tutosSolution.Tuto1;
 import ch.epfl.cs107.play.io.FileSystem;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.window.Window;
 
@@ -16,6 +17,7 @@ abstract public class ICWarsArea extends Area {
     private Window window;
     private ICWarsBehavior behavior;
     public Clip bgTrack;
+    public DiscreteCoordinates startCoordinates = new DiscreteCoordinates(3, 3);
 
     /**
      * Create the area by adding all its actors

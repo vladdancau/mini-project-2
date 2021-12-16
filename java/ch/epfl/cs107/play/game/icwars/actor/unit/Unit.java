@@ -21,7 +21,7 @@ public class Unit extends ICWarsActor {
     private boolean waitingStatus;
 
     public Unit(Area area, String type, String faction, DiscreteCoordinates coord) {
-        super(area, Orientation.DOWN, coord, getUnitSprite(type, faction), faction);
+        super(area, Orientation.UP, coord, getUnitSprite(type, faction), faction);
         this.type = type;
         this.waitingStatus = false;
         this.hp = maxHp();

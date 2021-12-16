@@ -13,13 +13,36 @@ public class Level2 extends ICWarsArea {
 
     @Override
     protected void createArea() {
+        startCoordinates = new DiscreteCoordinates(4, 14);
+
         registerActor(new Background(this));
-        addUnit(new Unit(this, "ROCKET", "red", new DiscreteCoordinates(8, 3)));
-        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(9, 4)));
-        addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(9, 3)));
-        addUnit(new Unit(this, "TANK", "blue", new DiscreteCoordinates(0, 9)));
-        addUnit(new Unit(this, "ROCKET", "blue", new DiscreteCoordinates(0, 8)));
-        addUnit(new Unit(this, "SOLDIER", "blue", new DiscreteCoordinates(0, 7)));
+        addUnit(new Unit(this, "CITY", "blue", new DiscreteCoordinates(5, 14)));
+        addUnit(new Unit(this, "TANK", "blue", new DiscreteCoordinates(5, 15)));
+        addUnit(new Unit(this, "TANK", "blue", new DiscreteCoordinates(5, 16)));
+        addUnit(new Unit(this, "ROCKET", "blue", new DiscreteCoordinates(6, 14)));
+        addUnit(new Unit(this, "ROCKET", "blue", new DiscreteCoordinates(6, 15)));
+        addUnit(new Unit(this, "ROCKET", "blue", new DiscreteCoordinates(6, 16)));
+        addUnit(new Unit(this, "SOLDIER", "blue", new DiscreteCoordinates(7, 14)));
+        addUnit(new Unit(this, "SOLDIER", "blue", new DiscreteCoordinates(7, 15)));
+        addUnit(new Unit(this, "SOLDIER", "blue", new DiscreteCoordinates(7, 16)));
+
+        addUnit(new Unit(this, "CITY", "red", new DiscreteCoordinates(27, 17)));
+        addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(25, 17)));
+        addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(25, 18)));
+        addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(24, 17)));
+        addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(24, 18)));
+        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(23, 17)));
+        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(23, 18)));
+        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(22, 17)));
+        addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(22, 18)));
+
+        addUnit(new Unit(this, "ROCKET", "yellow", new DiscreteCoordinates(8, 3)));
+        addUnit(new Unit(this, "SOLDIER", "yellow", new DiscreteCoordinates(9, 4)));
+        addUnit(new Unit(this, "TANK", "yellow", new DiscreteCoordinates(9, 3)));
+
+        addUnit(new Unit(this, "ROCKET", "green", new DiscreteCoordinates(8, 26)));
+        addUnit(new Unit(this, "SOLDIER", "green", new DiscreteCoordinates(9, 25)));
+        addUnit(new Unit(this, "TANK", "green", new DiscreteCoordinates(9, 26)));
     }
 }
 

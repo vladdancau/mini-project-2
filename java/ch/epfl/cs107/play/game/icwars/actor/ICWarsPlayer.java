@@ -129,7 +129,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
      */
     @Override
     public void enterArea(ICWarsArea area, DiscreteCoordinates position){
-        super.enterArea(area, position);
+        super.enterArea(area, area.startCoordinates);
         centerCamera();
     }
 

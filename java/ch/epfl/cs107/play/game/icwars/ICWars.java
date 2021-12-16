@@ -111,6 +111,13 @@ public class ICWars extends AreaGame {
             players.add(player3);
         }
 
+        if (areaKey == "icwars/Level2") {
+            ICWarsPlayer player3 = new AIPlayer(area, Orientation.UP, coords, "yellow");
+            players.add(player3);
+            ICWarsPlayer player4 = new AIPlayer(area, Orientation.UP, coords, "green");
+            players.add(player4);
+        }
+
         for (int i = 0; i < players.size(); i++) {
             players.get(i).enterArea(area, coords);
             players.get(i).setNextPlayer(players.get((i + 1) % players.size()));
