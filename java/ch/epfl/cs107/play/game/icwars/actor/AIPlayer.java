@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.icwars.actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsRange;
@@ -10,9 +11,12 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Keyboard;
 
+import javax.sound.sampled.Clip;
 import java.util.HashMap;
 
 public class AIPlayer extends ICWarsPlayer{
+
+    static Clip bgSound = ICWars.loadClip("count-up.wav");
 
     /**
      * Demo actor
@@ -43,14 +47,18 @@ public class AIPlayer extends ICWarsPlayer{
                     closestTarget = u;
 
         switch (getState()) {
+            case WAITING_TURN:
+                ICWars.loopClip(bgSound, 0);
+                break;
             case NORMAL:
                 Unit closestUnit = null;
                 for (Unit u : ((ICWarsArea) getOwnerArea()).getFriendlyUnits(faction))
                     if (!u.getWaitingStatus() && u.movableRadius() > 0 && (closestUnit == null || getDistance(u) < getDistance(closestUnit)))
                         closestUnit = u;
-                if (closestUnit == null)
+                if (closestUnit == null) {
                     key = Keyboard.TAB;
-                else
+                    bgSound.stop();
+                } else
                     setTargetPosition(closestUnit.getPosition());
                 //System.out.println(key + " " + (closestUnit == null));
                 break;
@@ -107,5 +115,11 @@ public class AIPlayer extends ICWarsPlayer{
             key = Keyboard.DOWN;
         controller.put(key, true);
         System.out.println(key);
+    }
+
+    @Override
+    public void leaveArea() {
+        super.leaveArea();
+        bgSound.stop();
     }
 }

@@ -28,20 +28,37 @@ public class Unit extends ICWarsActor {
         initRange();
     }
 
+    /**
+     * @param status = the state in which the unit finds itself after an action has been executed
+     *               this sets its opacity to 50%, making it appear blurred
+     */
+
     public void setWaitingStatus(boolean status) {
         waitingStatus = status;
         setOpacity(waitingStatus ? 0.5f : 1);
     }
 
+    /**
+     * @return waitingStatus, a boolean getter of setWaitingStatus
+     */
     public boolean getWaitingStatus() {
         return waitingStatus;
     }
 
+    /**
+     * Allows the program to give a string representing the file path up to the sprite of an unit
+     * @param type = a string, whether the unit is a tank or a soldier
+     * @param faction = a string, whether the unit is friendly or ennemy
+     * @return spriteName = the final concatenated string
+     */
     static private String getUnitSprite(String type, String faction) {
         final String spriteName = "icwars/" + faction + "/" + type.toLowerCase();
         return spriteName;
     }
 
+    /**
+     * initialises the ICWarsrange "range" object which describes the range in which the unit can move itself
+     */
     public void initRange() {
         int unitRange = movableRadius() * 2;
         int fromX = getCurrentMainCellCoordinates().x;
@@ -63,6 +80,10 @@ public class Unit extends ICWarsActor {
             }
     }
 
+    /**
+     *Different getters regarding structurak dynamic and static variables of the game
+     * @return type, hp, damagePoints, movableRadius, maxHp
+     */
     public String getName(){
         return type;
     }
@@ -70,6 +91,7 @@ public class Unit extends ICWarsActor {
     public int getDamage() { return UnitType.valueOf(this.type).damagePoints; }
     public int movableRadius() { return UnitType.valueOf(type).movableRadius; }
     public int maxHp() { return UnitType.valueOf(type).maxHp; }
+
 
     public void initAttackRange() {
         int unitRange = movableRadius() * 2;
@@ -91,6 +113,10 @@ public class Unit extends ICWarsActor {
             }
     }
 
+    /**
+     * Getter of a list of actions a player can do
+     * @return List<action> actions
+     */
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<>();
         actions.add(new WaitAction(this, getOwnerArea()));

@@ -12,6 +12,11 @@ import ch.epfl.cs107.play.window.Window;
 
 public class ICWarsBehavior extends AreaBehavior {
 
+    /**
+     * @param x
+     * @param y, coordinates of the cell we want to get the type from the behavior map, whether it's grass, a forest or a road
+     * @return ICWarsCelltype the effective type of the cell
+     */
     public ICWarsCellType getCellType(int x, int y){
         return ((ICWarsCell) this.getCell(x, y)).type;
     }

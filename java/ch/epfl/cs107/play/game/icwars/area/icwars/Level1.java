@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.icwars.area.icwars;
 
 import ch.epfl.cs107.play.game.areagame.actor.Background;
+import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -13,7 +14,10 @@ public class Level1 extends ICWarsArea {
 
     @Override
     protected void createArea() {
+        bgTrack = ICWars.loadClip("theme-drake.wav");
+
         registerActor(new Background(this));
+
         addUnit(new Unit(this, "ROCKET", "red", new DiscreteCoordinates(13, 5)));
         addUnit(new Unit(this, "SOLDIER", "red", new DiscreteCoordinates(14, 5)));
         addUnit(new Unit(this, "TANK", "red", new DiscreteCoordinates(15, 5)));

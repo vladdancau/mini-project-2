@@ -31,6 +31,7 @@ abstract public class AreaGame implements Game, PauseMenu.Pausable {
      * @param a (Area): The area to add, not null
      */
     protected final void addArea(Area a){
+        System.out.println(a.getTitle());
         areas.put(a.getTitle(), a);
     }
 

@@ -5,6 +5,9 @@ package ch.epfl.cs107.play.window;
  */
 public interface Keyboard {
     // TODO put int constants here, instead of using KeyEvent directly?
+    int ONE = 49;
+    int TWO = 50;
+    int THREE = 51;
     int TAB = 9;
     int ENTER = 10;
     int SPACE = 32;

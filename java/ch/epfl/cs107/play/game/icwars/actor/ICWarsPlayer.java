@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.icwars.actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.actor.unit.action.Action;
 import ch.epfl.cs107.play.game.icwars.actor.unit.Unit;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
@@ -13,10 +14,13 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 
+import javax.sound.sampled.Clip;
 import java.util.Collections;
 import java.util.List;
 
 abstract public class ICWarsPlayer extends ICWarsActor {
+    Clip cursorSound;
+
     ICWarsPlayer nextPlayer;
     protected List<Action> actions;
     protected Action selectedAction;
@@ -35,10 +39,12 @@ abstract public class ICWarsPlayer extends ICWarsActor {
         if (u.getWaitingStatus())
             return;
 
+        ICWars.playClip(cursorSound, 0);
         selectedUnit = u;
         setState(GameState.MOVE_UNIT);
     }
     public void deselectUnit() {
+        ICWars.playClip(cursorSound, 0);
         selectedUnit.setWaitingStatus(true);
         selectedUnit = null;
         selectedAction = null;
@@ -151,6 +157,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
     private void moveIfPressed(Orientation orientation, int key){
         if(isPressed(key)) {
             if (!isDisplacementOccurs()) {
+                ICWars.playClip(cursorSound, 0);
                 orientate(orientation);
                 move(MOVE_DURATION);
             }
@@ -213,6 +220,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
                     int movableRadius = selectedUnit.movableRadius();
 
                     if (selectedUnit.canMoveTo(coords)) {
+                        ICWars.playClip(cursorSound, 0);
                         selectedUnit.changePosition(coords);
                         actions = selectedUnit.getActions();
                         gui.setActions(actions);
@@ -223,6 +231,7 @@ abstract public class ICWarsPlayer extends ICWarsActor {
             case ACTION_SELECTION:
                 for (Action a : actions) {
                     if (isPressed(a.key)) {
+                        ICWars.playClip(cursorSound, 0);
                         selectedAction = a;
                         setState(GameState.ACTION);
                     }

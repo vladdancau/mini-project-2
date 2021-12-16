@@ -2,13 +2,18 @@ package ch.epfl.cs107.play.game.icwars.actor;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.icwars.ICWars;
 import ch.epfl.cs107.play.game.icwars.area.ICWarsArea;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Keyboard;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
 public class RealPlayer extends ICWarsPlayer {
     public RealPlayer(Area owner, Orientation orientation, DiscreteCoordinates coordinates, String faction) {
         super(owner, orientation, coordinates, faction);
+        cursorSound = ICWars.loadClip("fx/cursor.wav");
     }
 
     public boolean isPressed(int key) {
@@ -28,8 +33,7 @@ public class RealPlayer extends ICWarsPlayer {
     @Override
     public void enterArea(ICWarsArea area, DiscreteCoordinates position){
         super.enterArea(area, position);
-        if (area.bgTrack != null)
-            area.bgTrack.start();
+        ICWars.loopClip(area.bgTrack, -30f);
     }
     @Override
     public void leaveArea(){
